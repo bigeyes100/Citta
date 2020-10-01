@@ -153,7 +153,20 @@ namespace Citta_T1.Controls.Left
             this.toolTip1.SetToolTip(this.rightPictureBox, FullFilePath);
         }
 
+        private void ImportModelButton_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void ExportModelMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ModelDocument model = Global.GetModelDocumentDao().FindModelDocument(this.ModelTitle);
+            //模型没打开能够导出，否则文档非dirty才能导出
+            if (model == null)
+                this.ExportModel.Enabled = true;
+            else
+                this.ExportModel.Enabled = !model.Dirty;
+        }
     }
 
 

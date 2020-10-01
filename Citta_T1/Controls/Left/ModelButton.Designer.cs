@@ -32,16 +32,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModelButton));
             this.rightPictureBox = new System.Windows.Forms.PictureBox();
             this.lelfPictureBox = new System.Windows.Forms.PictureBox();
-            this.textButton = new Citta_T1.Controls.Common.NoFocusButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.OpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RenameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ExportModel = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CopyFilePathToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textBox = new System.Windows.Forms.TextBox();
+            this.textButton = new Citta_T1.Controls.Common.NoFocusButton();
             ((System.ComponentModel.ISupportInitialize)(this.rightPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lelfPictureBox)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -68,31 +69,19 @@
             this.lelfPictureBox.TabIndex = 1;
             this.lelfPictureBox.TabStop = false;
             // 
-            // textButton
-            // 
-            this.textButton.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.textButton.FlatAppearance.BorderSize = 0;
-            this.textButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.textButton.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textButton.Location = new System.Drawing.Point(29, 3);
-            this.textButton.Name = "textButton";
-            this.textButton.Size = new System.Drawing.Size(91, 25);
-            this.textButton.TabIndex = 9;
-            this.textButton.Text = "模型";
-            this.textButton.UseVisualStyleBackColor = false;
-            this.textButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TextButton_MouseDown);
-            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.OpenToolStripMenuItem,
             this.RenameToolStripMenuItem,
             this.DeleteToolStripMenuItem,
+            this.ExportModel,
             this.toolStripSeparator1,
             this.ExplorerToolStripMenuItem,
             this.CopyFilePathToClipboardToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(197, 120);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(197, 164);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.ExportModelMenuStrip1_Opening);
             // 
             // OpenToolStripMenuItem
             // 
@@ -117,6 +106,14 @@
             this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.DeleteToolStripMenuItem.Text = "删除";
             this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
+            // 
+            // ExportModel
+            // 
+            this.ExportModel.Enabled = false;
+            this.ExportModel.Name = "ExportModel";
+            this.ExportModel.Size = new System.Drawing.Size(196, 22);
+            this.ExportModel.Text = "导出模型";
+            this.ExportModel.Click += new System.EventHandler(this.ImportModelButton_Click);
             // 
             // toolStripSeparator1
             // 
@@ -151,6 +148,20 @@
             this.textBox.Visible = false;
             this.textBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox_KeyPress);
             this.textBox.Leave += new System.EventHandler(this.TextBox_Leave);
+            // 
+            // textButton
+            // 
+            this.textButton.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.textButton.FlatAppearance.BorderSize = 0;
+            this.textButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.textButton.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textButton.Location = new System.Drawing.Point(29, 3);
+            this.textButton.Name = "textButton";
+            this.textButton.Size = new System.Drawing.Size(91, 25);
+            this.textButton.TabIndex = 9;
+            this.textButton.Text = "模型";
+            this.textButton.UseVisualStyleBackColor = false;
+            this.textButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TextButton_MouseDown);
             // 
             // ModelButton
             // 
@@ -187,5 +198,6 @@
         private System.Windows.Forms.ToolStripMenuItem ExplorerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem CopyFilePathToClipboardToolStripMenuItem;
         private System.Windows.Forms.TextBox textBox;
+        private System.Windows.Forms.ToolStripMenuItem ExportModel;
     }
 }

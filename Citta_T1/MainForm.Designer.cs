@@ -66,6 +66,7 @@ namespace Citta_T1
             this.panel5 = new System.Windows.Forms.Panel();
             this.saveAllButton = new System.Windows.Forms.Button();
             this.ImportButton = new System.Windows.Forms.Button();
+            this.importModelButton=new System.Windows.Forms.Button();
             this.saveModelButton = new System.Windows.Forms.Button();
             this.newModelButton = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -473,10 +474,11 @@ namespace Citta_T1
             this.panel5.Controls.Add(this.ImportButton);
             this.panel5.Controls.Add(this.saveModelButton);
             this.panel5.Controls.Add(this.newModelButton);
+            this.panel5.Controls.Add(this.importModelButton);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(373, 48);
+            this.panel5.Size = new System.Drawing.Size(540,48);
             this.panel5.TabIndex = 5;
             // 
             // saveAllButton
@@ -530,6 +532,19 @@ namespace Citta_T1
             this.toolTip1.SetToolTip(this.newModelButton, "新建模型");
             this.newModelButton.UseVisualStyleBackColor = false;
             this.newModelButton.Click += new System.EventHandler(this.NewModelButton_Click);
+            // 
+            // importModelButton
+            // 
+            this.importModelButton.BackColor = System.Drawing.Color.White;
+            this.importModelButton.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.importModelButton.Image = global::Citta_T1.Properties.Resources.importmodel;
+            this.importModelButton.Location = new System.Drawing.Point(372, 8);
+            this.importModelButton.Name = "importModelButton";
+            this.importModelButton.Size = new System.Drawing.Size(105, 32);
+            this.importModelButton.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.importModelButton, "导入模型");
+            this.importModelButton.UseVisualStyleBackColor = false;
+            this.importModelButton.Click += new System.EventHandler(this.ImportModelButton_Click);
             // 
             // label7
             // 
@@ -981,5 +996,6 @@ namespace Citta_T1
         private Controls.Top.TopToolBarControl topToolBarControl;
         private ProgressBar progressBar1;
         private Label progressBarLabel;
+        private System.Windows.Forms.Button importModelButton;
     }
 }
