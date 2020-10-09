@@ -16,6 +16,9 @@ namespace Citta_T1.Controls.Title
         private static Point OriginalPoint = new System.Drawing.Point(2, 6);            //第一个模型标题的位置
         private List<ModelTitleControl> modelTitleControls;
         private int threshold = 9;                                                      //模型标题长度变化阈值
+
+        public List<ModelTitleControl> ModelTitleControls { get => this.modelTitleControls;  }
+
         public event NewDocumentEventHandler NewModelDocument;
         public event DocumentSwitchHandler ModelDocumentSwitch;
 
