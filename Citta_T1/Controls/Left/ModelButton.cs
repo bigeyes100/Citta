@@ -205,8 +205,6 @@ namespace Citta_T1.Controls.Left
             File.Copy(this.FullFilePath, tmpModelPath,true);
             // 创建存储数据的_datas文件夹
             this.dataPath = Path.Combine(modelPath, "_datas");
-            if (Directory.Exists(dataPath))
-                Directory.Delete(dataPath,true);
             Directory.CreateDirectory(dataPath);
             return CopyDatas();
      
@@ -248,8 +246,16 @@ namespace Citta_T1.Controls.Left
                     continue;
 
                 string outputParamPath = string.Empty;
+                XmlNode bcNode = optionNode.SelectSingleNode("browseChosen");
+                if (bcNode != null)
+                {
+                    if (!CopyDatas(optionNode, bcNode.InnerText, dataSourceNames, "browseChosen"))
+                        return !copySuccess;
+                }
                 if (optionNode.SelectSingleNode("outputParamPath") != null)
                     outputParamPath = optionNode.SelectSingleNode("outputParamPath").InnerText;
+                if(optionNode.SelectSingleNode("cmd")==null)
+                    continue;
                 string[] cmd = optionNode.SelectSingleNode("cmd").InnerText.Split(' ');
                 List<string> paths = new List<string>();
                 foreach (string item in cmd)
@@ -268,7 +274,7 @@ namespace Citta_T1.Controls.Left
                         continue;
                     }
 
-                    if(!CopyDatas(optionNode, path, dataSourceNames,false))
+                    if(!CopyDatas(optionNode, path, dataSourceNames))
                         return !copySuccess;
                     //修改cmd中路径的文件名
                     string newPath = Path.Combine(Path.GetDirectoryName(path), this.finallyName);
@@ -341,10 +347,13 @@ namespace Citta_T1.Controls.Left
         }
         private string dataPath;
         private string finallyName;
-        private bool CopyDatas(XmlNode xmlNode, String path, List<string> dataSourceNames, bool notPython = true)
+        private bool CopyDatas(XmlNode xmlNode, String path, List<string> dataSourceNames,string nodeName= "path")
         {
-            bool copySuccess = true;
+            bool copySuccess = true;          
             string pathName = Path.GetFileName(path);
+            // 导出模型文档再次导出
+            if (string.Equals(path, Path.Combine(this.dataPath, pathName)))
+                return copySuccess;
             if (!File.Exists(path))
             {
                 MessageBox.Show(path + "文件不存在，无法完成模型导出。");
@@ -352,17 +361,16 @@ namespace Citta_T1.Controls.Left
             }
             if (!dataSourceNames.Contains(pathName))
             {
-                File.Copy(path, Path.Combine(this.dataPath, pathName));
+                File.Copy(path, Path.Combine(this.dataPath, pathName),true);
                 dataSourceNames.Add(pathName);
                 finallyName = pathName;
             }
             else
             {
                 string reName = RenameFile(pathName, dataSourceNames);
-                File.Copy(path, Path.Combine(this.dataPath, reName));
+                File.Copy(path, Path.Combine(this.dataPath, reName), true);
                 dataSourceNames.Add(reName);
-                if (notPython)
-                    xmlNode.SelectSingleNode("path").InnerText = Path.Combine(Path.GetDirectoryName(path),reName);
+                xmlNode.SelectSingleNode(nodeName).InnerText = Path.Combine(Path.GetDirectoryName(path),reName);
                 finallyName = reName;
             }
             return copySuccess;

@@ -1,4 +1,5 @@
-﻿using Citta_T1.Controls.Title;
+﻿using Citta_T1.Controls.Left;
+using Citta_T1.Controls.Title;
 using Citta_T1.Core;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Collections.Generic;
@@ -47,7 +48,6 @@ namespace Citta_T1.Controls.Top
         private void UnZipIaoFile(string fullFilePath, string userName)
         {
             string newPath;
-
             if (File.Exists(fullFilePath))
             {
                 // iao扩展名改为zip
@@ -104,7 +104,8 @@ namespace Citta_T1.Controls.Top
                 this.modelDir= Path.Combine(Global.WorkspaceDirectory, userName, modelName);
                 this.modelFilePath = Path.Combine(this.modelDir, fileName);
                 // 是否包含同名模型文档
-                if (Global.GetMainForm().AllModelTitle.Contains(modelName))
+   
+                if (CheckSameModelTitle(modelName))
                 {
                     result = MessageBox.Show("模型文件:" + modelName + "已存在，是否覆盖该模型文档", "导入模型", MessageBoxButtons.OKCancel);                    
                 }
@@ -158,21 +159,29 @@ namespace Citta_T1.Controls.Top
         }
         private void RenameFile(string dirs,string fullFilePath)
         {
-            DirectoryInfo dir0 = new DirectoryInfo(dirs);
-            FileInfo[] fsinfos0 = dir0.GetFiles();
             Dictionary<string, string> dataSourcePath = new Dictionary<string, string>();
-            foreach (FileInfo fsinfo in fsinfos0)
+            if (Directory.Exists(dirs))
             {
-                // 建立数据源、脚本名称与路径对应字典
-                dataSourcePath[fsinfo.Name] = fsinfo.FullName;
+                DirectoryInfo dir0 = new DirectoryInfo(dirs);
+                FileInfo[] fsinfos0 = dir0.GetFiles();               
+                foreach (FileInfo fsinfo in fsinfos0)
+                {
+                    // 建立数据源、脚本名称与路径对应字典
+                    dataSourcePath[fsinfo.Name] = fsinfo.FullName;
+                }
             }
+            
             DirectoryInfo dir1 = new DirectoryInfo(Path.GetDirectoryName(fullFilePath));
             FileInfo[] fsinfos1 = dir1.GetFiles();
             foreach (FileInfo fsinfo in fsinfos1)
-            { 
+            {
                 // 建立结果文件名称与路径对应字典
-                dataSourcePath[fsinfo.Name] = fsinfo.FullName;
+                if (!fsinfo.Name.EndsWith(".xml"))
+                    dataSourcePath[fsinfo.Name] = fsinfo.FullName;
             }
+            if (dataSourcePath.Count == 0)
+                return;
+
             XmlDocument xDoc = new XmlDocument();
             xDoc.Load(fullFilePath);
             XmlNode rootNode = xDoc.SelectSingleNode("ModelDocument");
@@ -261,11 +270,22 @@ namespace Citta_T1.Controls.Top
         }
         private void MyModelControlAddItem(string modelTitle)
         {
-            if (Global.GetMainForm().AllModelTitle.Contains(modelTitle))
+            if (CheckSameModelTitle(modelTitle))
                 return;
+               
             Global.GetMyModelControl().AddModel(modelTitle);
             // 菜单项可以打开
             Global.GetMyModelControl().EnableClosedDocumentMenu(modelTitle);
+        }
+        private bool CheckSameModelTitle(string modelTitle)
+        {
+            bool hasSameName = true;
+            foreach (Control control in Global.GetMyModelControl().Controls)
+            {
+                if (control is ModelButton && (control as ModelButton).ModelTitle == modelTitle)
+                    return hasSameName;
+            }
+            return !hasSameName;
         }
         
     }

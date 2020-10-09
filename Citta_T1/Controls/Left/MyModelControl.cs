@@ -85,8 +85,6 @@ namespace Citta_T1.Controls.Left
                 LayoutModelButtonLocation(ct);
                 Controls.Add(ct);
             }
-
-
             this.ResumeLayout(false);
             this.PerformLayout();
         }
