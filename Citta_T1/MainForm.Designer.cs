@@ -464,7 +464,7 @@ namespace Citta_T1
             // topToolBarControl
             // 
             this.topToolBarControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.topToolBarControl.Location = new System.Drawing.Point(-1, 8);
+            this.topToolBarControl.Location = new System.Drawing.Point(13, 8);
             this.topToolBarControl.Name = "topToolBarControl";
             this.topToolBarControl.Size = new System.Drawing.Size(585, 33);
             this.topToolBarControl.TabIndex = 24;
@@ -487,9 +487,9 @@ namespace Citta_T1
             this.saveAllButton.BackColor = System.Drawing.Color.White;
             this.saveAllButton.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.saveAllButton.Image = global::Citta_T1.Properties.Resources.saveall;
-            this.saveAllButton.Location = new System.Drawing.Point(258, 8);
+            this.saveAllButton.Location = new System.Drawing.Point(257, 8);
             this.saveAllButton.Name = "saveAllButton";
-            this.saveAllButton.Size = new System.Drawing.Size(105, 32);
+            this.saveAllButton.Size = new System.Drawing.Size(104, 32);
             this.saveAllButton.TabIndex = 3;
             this.toolTip1.SetToolTip(this.saveAllButton, "保存当前打开的所有模型");
             this.saveAllButton.UseVisualStyleBackColor = false;
@@ -539,9 +539,9 @@ namespace Citta_T1
             this.importModelButton.BackColor = System.Drawing.Color.White;
             this.importModelButton.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.importModelButton.Image = global::Citta_T1.Properties.Resources.importmodel;
-            this.importModelButton.Location = new System.Drawing.Point(372, 8);
+            this.importModelButton.Location = new System.Drawing.Point(371, 8);
             this.importModelButton.Name = "importModelButton";
-            this.importModelButton.Size = new System.Drawing.Size(105, 32);
+            this.importModelButton.Size = new System.Drawing.Size(104, 32);
             this.importModelButton.TabIndex = 0;
             this.toolTip1.SetToolTip(this.importModelButton, "导入模型");
             this.importModelButton.UseVisualStyleBackColor = false;
