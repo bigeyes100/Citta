@@ -48,7 +48,7 @@
             // 
             this.relateButton.Enabled = false;
             this.relateButton.Image = ((System.Drawing.Image)(resources.GetObject("relateButton.Image")));
-            this.relateButton.Location = new System.Drawing.Point(44, 0);
+            this.relateButton.Location = new System.Drawing.Point(107, 1);
             this.relateButton.Name = "relateButton";
             this.relateButton.Size = new System.Drawing.Size(61, 32);
             this.relateButton.TabIndex = 2;
@@ -60,7 +60,7 @@
             // 
             this.collideButton.Enabled = false;
             this.collideButton.Image = ((System.Drawing.Image)(resources.GetObject("collideButton.Image")));
-            this.collideButton.Location = new System.Drawing.Point(107, 0);
+            this.collideButton.Location = new System.Drawing.Point(192, 0);
             this.collideButton.Name = "collideButton";
             this.collideButton.Size = new System.Drawing.Size(61, 32);
             this.collideButton.TabIndex = 6;
@@ -71,7 +71,7 @@
             // unionButton
             // 
             this.unionButton.Image = ((System.Drawing.Image)(resources.GetObject("unionButton.Image")));
-            this.unionButton.Location = new System.Drawing.Point(210, 0);
+            this.unionButton.Location = new System.Drawing.Point(277, 0);
             this.unionButton.Name = "unionButton";
             this.unionButton.Size = new System.Drawing.Size(61, 32);
             this.unionButton.TabIndex = 0;
@@ -82,7 +82,7 @@
             // differButton
             // 
             this.differButton.Image = ((System.Drawing.Image)(resources.GetObject("differButton.Image")));
-            this.differButton.Location = new System.Drawing.Point(275, 0);
+            this.differButton.Location = new System.Drawing.Point(344, 0);
             this.differButton.Name = "differButton";
             this.differButton.Size = new System.Drawing.Size(61, 32);
             this.differButton.TabIndex = 0;
@@ -93,7 +93,7 @@
             // filterButton
             // 
             this.filterButton.Image = ((System.Drawing.Image)(resources.GetObject("filterButton.Image")));
-            this.filterButton.Location = new System.Drawing.Point(340, 0);
+            this.filterButton.Location = new System.Drawing.Point(411, 0);
             this.filterButton.Name = "filterButton";
             this.filterButton.Size = new System.Drawing.Size(61, 32);
             this.filterButton.TabIndex = 0;
@@ -104,7 +104,7 @@
             // randomButton
             // 
             this.randomButton.Image = ((System.Drawing.Image)(resources.GetObject("randomButton.Image")));
-            this.randomButton.Location = new System.Drawing.Point(405, 0);
+            this.randomButton.Location = new System.Drawing.Point(478, 0);
             this.randomButton.Name = "randomButton";
             this.randomButton.Size = new System.Drawing.Size(69, 32);
             this.randomButton.TabIndex = 0;
@@ -150,7 +150,7 @@
             // 
             this.undoButton.Enabled = false;
             this.undoButton.Image = ((System.Drawing.Image)(resources.GetObject("undoButton.Image")));
-            this.undoButton.Location = new System.Drawing.Point(44, 0);
+            this.undoButton.Location = new System.Drawing.Point(107, 0);
             this.undoButton.Name = "undoButton";
             this.undoButton.Size = new System.Drawing.Size(79, 32);
             this.undoButton.TabIndex = 0;
@@ -162,7 +162,7 @@
             // 
             this.redoButton.Enabled = false;
             this.redoButton.Image = ((System.Drawing.Image)(resources.GetObject("redoButton.Image")));
-            this.redoButton.Location = new System.Drawing.Point(127, 0);
+            this.redoButton.Location = new System.Drawing.Point(192, 0);
             this.redoButton.Name = "redoButton";
             this.redoButton.Size = new System.Drawing.Size(79, 32);
             this.redoButton.TabIndex = 0;
