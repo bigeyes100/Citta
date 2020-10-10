@@ -53,6 +53,10 @@ namespace Citta_T1.Controls.Top
                 // iao扩展名改为zip
                 newPath = Path.ChangeExtension(fullFilePath, "zip");
                 newPath = Path.Combine(Global.WorkspaceDirectory, userName, Path.GetFileName(newPath));
+
+                // 新用户导入不存在用户空间，需要创建
+                if (!Directory.Exists(Path.GetDirectoryName(newPath)))
+                    Directory.CreateDirectory(Path.GetDirectoryName(newPath));
                 File.Copy(fullFilePath, newPath, true);
             }
             else
@@ -125,7 +129,7 @@ namespace Citta_T1.Controls.Top
                             continue;
                         if (!titleControl.Selected)
                             break;
-                        MessageBox.Show("模型文件:" + modelName + "已打开，覆盖改文档前需要关闭该模型文档", "关闭模型文档");
+                        MessageBox.Show("模型文件:" + modelName + "已打开，请关闭该文档并重新进行导入", "关闭模型文档");
                         //删除导入的zip压缩包
                         s.Close();
                         if (File.Exists(zipFilePath))
@@ -280,9 +284,16 @@ namespace Citta_T1.Controls.Top
         private bool CheckSameModelTitle(string modelTitle)
         {
             bool hasSameName = true;
+            //左侧面板同名模型文档
             foreach (Control control in Global.GetMyModelControl().Controls)
             {
                 if (control is ModelButton && (control as ModelButton).ModelTitle == modelTitle)
+                    return hasSameName;
+            }
+            //Panel中同名模型文档
+            foreach (ModelTitleControl titleControl in Global.GetModelTitlePanel().ModelTitleControls)
+            {
+                if(titleControl.ModelTitle == modelTitle)
                     return hasSameName;
             }
             return !hasSameName;
