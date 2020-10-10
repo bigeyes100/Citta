@@ -69,6 +69,7 @@ namespace Citta_T1.Controls.Top
                 RenameFile(dirs, this.modelFilePath);
                 // 将导入模型添加到左侧模型面板
                 MyModelControlAddItem(Path.GetFileNameWithoutExtension(this.modelFilePath));
+                MessageBox.Show("模型导入成功。");
             }
 
            
