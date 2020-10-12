@@ -330,6 +330,12 @@
     <Compile Include="IAOLab\PythonOP\PythonInterpreterInfo.cs" />
     <Compile Include="IAOLab\PythonOP\PythonOPConfig.cs" />
     <Compile Include="IAOLab\PythonOP\PythonOperatorCmd.cs" />
+    <Compile Include="IAOLab\PythonOP\PythonOperatorHelper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IAOLab\PythonOP\PythonOperatorHelper.Designer.cs">
+      <DependentUpon>PythonOperatorHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="IAOLab\PythonOP\PythonOperatorView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -558,8 +564,12 @@
     <EmbeddedResource Include="IAOLab\CustomOP\CustomOperatorView.resx">
       <DependentUpon>CustomOperatorView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="IAOLab\PythonOP\PythonOperatorHelper.resx">
+      <DependentUpon>PythonOperatorHelper.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="IAOLab\PythonOP\PythonOperatorView.resx">
       <DependentUpon>PythonOperatorView.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -720,6 +730,13 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\avgOp.bmp" />
+    <None Include="Resources\界面介绍2.png" />
+    <None Include="Resources\pythonHelper1.png" />
+    <None Include="Resources\pythonHelper2.png" />
+    <None Include="Resources\pythonHelper3.png" />
+    <None Include="Resources\pythonHelper4.png" />
+    <None Include="Resources\pythonHelper5.png" />
+    <None Include="Resources\pythonHelper6.png" />
     <Content Include="res\flow\flow.png" />
     <Content Include="res\Icon\Icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
