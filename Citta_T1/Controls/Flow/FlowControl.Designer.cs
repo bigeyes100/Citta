@@ -62,7 +62,7 @@
             // 
             this.zoomUpPictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.zoomUpPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("zoomUpPictureBox.Image")));
-            this.zoomUpPictureBox.Location = new System.Drawing.Point(54, 5);
+            this.zoomUpPictureBox.Location = new System.Drawing.Point(55, 5);
             this.zoomUpPictureBox.Name = "zoomUpPictureBox";
             this.zoomUpPictureBox.Size = new System.Drawing.Size(22, 22);
             this.zoomUpPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -78,7 +78,7 @@
             this.zoomDownPictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.zoomDownPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.zoomDownPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("zoomDownPictureBox.Image")));
-            this.zoomDownPictureBox.Location = new System.Drawing.Point(92, 5);
+            this.zoomDownPictureBox.Location = new System.Drawing.Point(93, 5);
             this.zoomDownPictureBox.Name = "zoomDownPictureBox";
             this.zoomDownPictureBox.Size = new System.Drawing.Size(22, 22);
             this.zoomDownPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -93,7 +93,7 @@
             // 
             this.remarkPictureBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
             this.remarkPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("remarkPictureBox.Image")));
-            this.remarkPictureBox.Location = new System.Drawing.Point(129, 4);
+            this.remarkPictureBox.Location = new System.Drawing.Point(132, 4);
             this.remarkPictureBox.Name = "remarkPictureBox";
             this.remarkPictureBox.Size = new System.Drawing.Size(23, 23);
             this.remarkPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
