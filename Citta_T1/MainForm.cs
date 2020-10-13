@@ -29,12 +29,13 @@ namespace Citta_T1
         private string userName;
         private Citta_T1.Dialogs.InputDataForm inputDataForm;
         private Citta_T1.Dialogs.CreateNewModelForm createNewModelForm;
+        private string[] allModelTitle;
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 
         private ModelDocumentDao modelDocumentDao;
         private OptionDao optionDao;
         public string UserName { get => this.userName; set => this.userName = value; }
-
+        public string[] AllModelTitle { get => this.allModelTitle; }
         delegate void AsynUpdateLog(string logContent);
         delegate void AsynUpdateGif();
         delegate void TaskCallBack();
@@ -210,7 +211,7 @@ namespace Citta_T1
                 CanvasAddElement(doc);
             }
             // 将用户本地保存的模型文档加载到左侧myModelControl
-            string[] allModelTitle = this.modelDocumentDao.LoadAllModelTitle(this.userName);
+            this.allModelTitle = this.modelDocumentDao.LoadAllModelTitle(this.userName);
             foreach (string modelTitle in allModelTitle)
             {
                 this.myModelControl.AddModel(modelTitle);
@@ -400,7 +401,10 @@ namespace Citta_T1
         }
 
 
-
+        private void ImportModelButton_Click(object sender, EventArgs e)
+        {
+           Citta_T1.Controls.Top.ImportModel.GetInstance().ExportIaoFile(this.userName);
+        }
         private void NewModelButton_Click(object sender, EventArgs e)
         {
             this.createNewModelForm.StartPosition = FormStartPosition.CenterScreen;
@@ -740,6 +744,8 @@ namespace Citta_T1
 
         private void HelpPictureBox_Click(object sender, EventArgs e)
         {
+            if (Global.VersionType.Equals(Global.GreenVersion))
+                return;
             string helpfile = Application.StartupPath;
             helpfile += @"\Doc\IAO解决方案帮助文档v1.chm";
             Help.ShowHelp(this, helpfile);

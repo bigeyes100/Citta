@@ -58,7 +58,7 @@ namespace Citta_T1.Business.Model
             this.SavePath = Path.Combine(this.UserPath, modelTitle);
             this.ElementCount = 0;
             this.TaskManager = new TaskManager();
-            this.WorldMap = new WorldMap();
+            this.WorldMap = new WorldMap(); 
         }
         /*
          * 保存功能

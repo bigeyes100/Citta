@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,6 +14,8 @@
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -80,6 +83,9 @@
     <Reference Include="ConsoleControlAPI">
       <HintPath>..\ThirdPartyLibrary\ConsoleControlAPI.1.2.1\lib\net40\ConsoleControlAPI.dll</HintPath>
     </Reference>
+    <Reference Include="Costura, Version=4.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
+    </Reference>
     <Reference Include="EPPlus, Version=5.2.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ThirdPartyLibrary\EPPlus.5.2.0\lib\net45\EPPlus.dll</HintPath>
@@ -110,6 +116,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -151,6 +158,7 @@
     <Compile Include="Controls\Move\MoveBaseControl.Designer.cs">
       <DependentUpon>MoveBaseControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Top\ImportModel.cs" />
     <Compile Include="Core\UndoRedo\Command\BatchDeleteCommand.cs" />
     <Compile Include="Core\UndoRedo\Command\BatchMoveCommand.cs" />
     <Compile Include="Core\UndoRedo\Command\ElementAddCommand.cs" />
@@ -328,6 +336,12 @@
     <Compile Include="IAOLab\PythonOP\PythonInterpreterInfo.cs" />
     <Compile Include="IAOLab\PythonOP\PythonOPConfig.cs" />
     <Compile Include="IAOLab\PythonOP\PythonOperatorCmd.cs" />
+    <Compile Include="IAOLab\PythonOP\PythonOperatorHelper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IAOLab\PythonOP\PythonOperatorHelper.Designer.cs">
+      <DependentUpon>PythonOperatorHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="IAOLab\PythonOP\PythonOperatorView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -474,6 +488,7 @@
     <Compile Include="Utils\ControlUtil.cs" />
     <Compile Include="Utils\LogUtil.cs" />
     <Compile Include="Utils\OpUtil.cs" />
+    <Compile Include="Utils\ZipAndUnZipUtil.cs" />
     <EmbeddedResource Include="Controls\CanvasPanel.resx">
       <DependentUpon>CanvasPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -555,8 +570,13 @@
     <EmbeddedResource Include="IAOLab\CustomOP\CustomOperatorView.resx">
       <DependentUpon>CustomOperatorView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="IAOLab\PythonOP\PythonOperatorHelper.resx">
+      <DependentUpon>PythonOperatorHelper.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="IAOLab\PythonOP\PythonOperatorView.resx">
       <DependentUpon>PythonOperatorView.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -693,6 +713,7 @@
     <None Include="log4net.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -716,14 +737,19 @@
     <Content Include="Doc\Citta项目 C#编码风格规范.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\avgOp.bmp" />
+    <None Include="Resources\pythonHelper1.png" />
+    <None Include="Resources\pythonHelper2.png" />
+    <None Include="Resources\pythonHelper3.png" />
+    <None Include="Resources\pythonHelper4.png" />
+    <None Include="Resources\pythonHelper5.png" />
+    <None Include="Resources\pythonHelper6.png" />
     <Content Include="res\flow\flow.png" />
     <Content Include="res\Icon\Icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="res\toolbox\continue.png" />
     <None Include="res\toolbox\run.png" />
     <None Include="res\toolbox\continual.png" />
+    <Content Include="res\toolbox\importmodel.png" />
     <Content Include="sbin\sleep.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -732,9 +758,6 @@
     </Content>
     <None Include="res\toolbox\saveall.png" />
     <None Include="res\toolbox\reset.png" />
-    <None Include="res\toolbox\redo.png" />
-    <None Include="res\toolbox\undo.png" />
-    <None Include="res\leftpanelmenu\LeftpanelOpIcon.png" />
     <Content Include="res\opControl\releateOp.png" />
     <Content Include="res\opControl\wordFilterOp.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -806,7 +829,6 @@
     <None Include="datas\text.txt" />
     <None Include="datas\text_gbk.txt" />
     <None Include="datas\text_utf8.txt" />
-    <None Include="Resources\text_gbk_1.bmp" />
     <None Include="datas\text_gbk_1.txt" />
     <None Include="datas\text_utf8_1.txt" />
     <None Include="Resources\dataButton.bmp" />
@@ -831,58 +853,24 @@
     <Content Include="res\element\set.png" />
     <Content Include="res\element\setSuccess.png" />
     <Content Include="res\element\warn.png" />
-    <Content Include="res\flowchart\diamond.png" />
-    <Content Include="res\flowchart\downarrow.png" />
-    <Content Include="res\flowchart\ellipse.png" />
-    <Content Include="res\flowchart\flag.png" />
-    <Content Include="res\flowchart\leftarrow.png" />
-    <Content Include="res\flowchart\person.png" />
-    <Content Include="res\flowchart\picture.png" />
-    <Content Include="res\flowchart\questionmark.png" />
-    <Content Include="res\flowchart\rectange.png" />
-    <Content Include="res\flowchart\rightarrow.png" />
-    <Content Include="res\flowchart\roundrectange.png" />
-    <Content Include="res\flowchart\uparrow.png" />
     <Content Include="res\flow\drop.png" />
     <Content Include="res\flow\selectDrag.png" />
     <Content Include="res\flow\selectFrame.png" />
     <Content Include="res\flow\selectRemark.png" />
     <Content Include="res\flow\selectZommUp.png" />
     <Content Include="res\flow\selectZoomDown.png" />
-    <Content Include="res\leftpanelmenu\leftpanel_connect.png" />
-    <Content Include="res\leftpanelmenu\leftpanel_filterop.png" />
-    <Content Include="res\leftpanelmenu\leftpanel_intersect.png" />
-    <Content Include="res\leftpanelmenu\leftpanel_max.png" />
-    <Content Include="res\leftpanelmenu\leftpanel_random.png" />
-    <Content Include="res\leftpanelmenu\leftpanel_union.png" />
-    <Content Include="res\leftpanelmenu\title.png" />
     <Content Include="res\menu\controlhelp.png" />
     <Content Include="res\menu\head.png" />
     <Content Include="res\menu\help.png" />
     <None Include="res\toolbox\add.png" />
     <None Include="res\menu\modelstep.png" />
-    <Content Include="res\toolbox\background.png" />
     <Content Include="res\toolbox\clicksavebutton.png" />
-    <Content Include="res\toolbox\connect.png" />
     <None Include="res\toolbox\currentModelRunning.gif" />
     <None Include="res\toolbox\currentModelFin.png" />
     <None Include="res\toolbox\currentModelRunningBack.png" />
-    <Content Include="res\toolbox\difference.png" />
     <None Include="res\toolbox\div.png" />
-    <Content Include="res\toolbox\filter.png" />
-    <Content Include="res\toolbox\group.png" />
-    <Content Include="res\toolbox\histogram.png" />
-    <Content Include="res\toolbox\importfile.png" />
-    <Content Include="res\toolbox\intersection.png" />
-    <Content Include="res\toolbox\MoveOpBackground.png" />
-    <Content Include="res\toolbox\newfile.png" />
     <None Include="res\toolbox\pause.png" />
-    <Content Include="res\toolbox\RandomButton.png" />
     <None Include="res\toolbox\relation.png" />
-    <Content Include="res\toolbox\savefile.png" />
-    <Content Include="res\toolbox\typesetting.png" />
-    <Content Include="res\toolbox\more.png" />
-    <Content Include="res\toolbox\union.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -905,4 +893,12 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Fody.6.0.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.0.0\build\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Fody.6.0.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.0.0\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props'))" />
+  </Target>
 </Project>

@@ -397,6 +397,12 @@ namespace Citta_T1.Business.Schedule
                         UpdateLogDelegate("执行命令: " + cmd);
                         p.StandardInput.WriteLine(cmd);
                     }
+
+                    //多线程下异步读取
+                    p.ErrorDataReceived += new DataReceivedEventHandler(p_ErrorDataReceived);
+                    p.BeginErrorReadLine();
+                    p.BeginOutputReadLine();
+
                     p.StandardInput.WriteLine("exit");
                     p.WaitForExit(); //等待进程结束，等待时间为指定的毫秒   
                 }
@@ -411,6 +417,7 @@ namespace Citta_T1.Business.Schedule
             finally
             {
                 if (p != null)
+                    p.Dispose();//释放资源
                     p.Close();
                 lock (_objLock)
                 {
@@ -418,6 +425,14 @@ namespace Citta_T1.Business.Schedule
                 }
             }
             return errorMessage;
+        }
+
+        void p_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(e.Data))
+            {
+                UpdateLogDelegate(e.Data);
+            }
         }
         #endregion
     }

@@ -68,6 +68,7 @@ namespace Citta_T1
             this.ImportButton = new System.Windows.Forms.Button();
             this.saveModelButton = new System.Windows.Forms.Button();
             this.newModelButton = new System.Windows.Forms.Button();
+            this.importModelButton = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.moreButton = new System.Windows.Forms.Button();
             this.formatButton = new System.Windows.Forms.Button();
@@ -79,12 +80,12 @@ namespace Citta_T1
             this.connectOpButton = new System.Windows.Forms.Button();
             this.blankButton = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.modelTitlePanel = new Citta_T1.Controls.Title.ModelTitlePanel();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.leftFoldButton = new System.Windows.Forms.PictureBox();
             this.resetButton = new System.Windows.Forms.Button();
             this.stopButton = new System.Windows.Forms.Button();
             this.runButton = new System.Windows.Forms.Button();
+            this.modelTitlePanel = new Citta_T1.Controls.Title.ModelTitlePanel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.canvasPanel = new Citta_T1.Controls.CanvasPanel();
             this.progressBarLabel = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -112,9 +113,9 @@ namespace Citta_T1
             this.panel1.SuspendLayout();
             this.commonPanel.SuspendLayout();
             this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.leftFoldButton)).BeginInit();
             this.modelTitlePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.leftFoldButton)).BeginInit();
             this.canvasPanel.SuspendLayout();
             this.currentModelRunBackLab.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -455,16 +456,17 @@ namespace Citta_T1
             // 
             this.commonPanel.Controls.Add(this.topToolBarControl);
             this.commonPanel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.commonPanel.Location = new System.Drawing.Point(355, 0);
+            this.commonPanel.Location = new System.Drawing.Point(412, 0);
             this.commonPanel.Name = "commonPanel";
-            this.commonPanel.Size = new System.Drawing.Size(555, 48);
+            this.commonPanel.Size = new System.Drawing.Size(498, 48);
             this.commonPanel.TabIndex = 5;
             // 
             // topToolBarControl
             // 
-            this.topToolBarControl.Location = new System.Drawing.Point(-42, 8);
+            this.topToolBarControl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.topToolBarControl.Location = new System.Drawing.Point(13, 8);
             this.topToolBarControl.Name = "topToolBarControl";
-            this.topToolBarControl.Size = new System.Drawing.Size(594, 33);
+            this.topToolBarControl.Size = new System.Drawing.Size(585, 33);
             this.topToolBarControl.TabIndex = 24;
             // 
             // panel5
@@ -473,10 +475,11 @@ namespace Citta_T1
             this.panel5.Controls.Add(this.ImportButton);
             this.panel5.Controls.Add(this.saveModelButton);
             this.panel5.Controls.Add(this.newModelButton);
+            this.panel5.Controls.Add(this.importModelButton);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(373, 48);
+            this.panel5.Size = new System.Drawing.Size(540, 48);
             this.panel5.TabIndex = 5;
             // 
             // saveAllButton
@@ -484,9 +487,9 @@ namespace Citta_T1
             this.saveAllButton.BackColor = System.Drawing.Color.White;
             this.saveAllButton.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.saveAllButton.Image = global::Citta_T1.Properties.Resources.saveall;
-            this.saveAllButton.Location = new System.Drawing.Point(258, 8);
+            this.saveAllButton.Location = new System.Drawing.Point(257, 8);
             this.saveAllButton.Name = "saveAllButton";
-            this.saveAllButton.Size = new System.Drawing.Size(105, 32);
+            this.saveAllButton.Size = new System.Drawing.Size(104, 32);
             this.saveAllButton.TabIndex = 3;
             this.toolTip1.SetToolTip(this.saveAllButton, "保存当前打开的所有模型");
             this.saveAllButton.UseVisualStyleBackColor = false;
@@ -530,6 +533,19 @@ namespace Citta_T1
             this.toolTip1.SetToolTip(this.newModelButton, "新建模型");
             this.newModelButton.UseVisualStyleBackColor = false;
             this.newModelButton.Click += new System.EventHandler(this.NewModelButton_Click);
+            // 
+            // importModelButton
+            // 
+            this.importModelButton.BackColor = System.Drawing.Color.White;
+            this.importModelButton.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.importModelButton.Image = global::Citta_T1.Properties.Resources.importmodel;
+            this.importModelButton.Location = new System.Drawing.Point(371, 8);
+            this.importModelButton.Name = "importModelButton";
+            this.importModelButton.Size = new System.Drawing.Size(104, 32);
+            this.importModelButton.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.importModelButton, "导入模型");
+            this.importModelButton.UseVisualStyleBackColor = false;
+            this.importModelButton.Click += new System.EventHandler(this.ImportModelButton_Click);
             // 
             // label7
             // 
@@ -604,28 +620,6 @@ namespace Citta_T1
             this.blankButton.Text = "button1";
             this.blankButton.UseVisualStyleBackColor = true;
             // 
-            // modelTitlePanel
-            // 
-            this.modelTitlePanel.Controls.Add(this.pictureBox2);
-            this.modelTitlePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.modelTitlePanel.Location = new System.Drawing.Point(0, 0);
-            this.modelTitlePanel.Margin = new System.Windows.Forms.Padding(4);
-            this.modelTitlePanel.Name = "modelTitlePanel";
-            this.modelTitlePanel.Size = new System.Drawing.Size(910, 36);
-            this.modelTitlePanel.TabIndex = 1;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.BackgroundImage")));
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pictureBox2.Location = new System.Drawing.Point(0, 33);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(910, 3);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 0;
-            this.pictureBox2.TabStop = false;
-            // 
             // leftFoldButton
             // 
             this.leftFoldButton.Image = ((System.Drawing.Image)(resources.GetObject("leftFoldButton.Image")));
@@ -692,6 +686,28 @@ namespace Citta_T1
             this.toolTip1.SetToolTip(this.runButton, "开始调试当前模型");
             this.runButton.UseVisualStyleBackColor = true;
             this.runButton.Click += new System.EventHandler(this.RunButton_Click);
+            // 
+            // modelTitlePanel
+            // 
+            this.modelTitlePanel.Controls.Add(this.pictureBox2);
+            this.modelTitlePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.modelTitlePanel.Location = new System.Drawing.Point(0, 0);
+            this.modelTitlePanel.Margin = new System.Windows.Forms.Padding(4);
+            this.modelTitlePanel.Name = "modelTitlePanel";
+            this.modelTitlePanel.Size = new System.Drawing.Size(910, 36);
+            this.modelTitlePanel.TabIndex = 1;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.BackgroundImage")));
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pictureBox2.Location = new System.Drawing.Point(0, 33);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(910, 3);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 0;
+            this.pictureBox2.TabStop = false;
             // 
             // canvasPanel
             // 
@@ -900,9 +916,9 @@ namespace Citta_T1
             this.panel1.ResumeLayout(false);
             this.commonPanel.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.leftFoldButton)).EndInit();
             this.modelTitlePanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.leftFoldButton)).EndInit();
             this.canvasPanel.ResumeLayout(false);
             this.canvasPanel.PerformLayout();
             this.currentModelRunBackLab.ResumeLayout(false);
@@ -981,5 +997,6 @@ namespace Citta_T1
         private Controls.Top.TopToolBarControl topToolBarControl;
         private ProgressBar progressBar1;
         private Label progressBarLabel;
+        private System.Windows.Forms.Button importModelButton;
     }
 }
