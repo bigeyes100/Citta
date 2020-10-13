@@ -736,7 +736,6 @@
     <Content Include="Doc\Citta项目 C#编码风格规范.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\avgOp.bmp" />
     <None Include="Resources\界面介绍2.png" />
     <None Include="Resources\pythonHelper1.png" />
     <None Include="Resources\pythonHelper2.png" />
@@ -834,15 +833,11 @@
     <None Include="datas\text.txt" />
     <None Include="datas\text_gbk.txt" />
     <None Include="datas\text_utf8.txt" />
-    <None Include="Resources\text_gbk_1.bmp" />
     <None Include="datas\text_gbk_1.txt" />
     <None Include="datas\text_utf8_1.txt" />
     <None Include="Resources\dataButton.bmp" />
-    <None Include="Resources\Image1.bmp" />
     <None Include="Resources\u72.png" />
     <None Include="Resources\u721.png" />
-    <None Include="Resources\Image1.png" />
-    <None Include="Resources\selectDrag.png" />
     <Content Include="res\displaypanel\blueshadow.png" />
     <Content Include="res\displaypanel\close.png" />
     <Content Include="res\displaypanel\maxunfold.png">
