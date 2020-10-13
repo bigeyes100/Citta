@@ -163,16 +163,6 @@ namespace Citta_T1.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap dataButton {
-            get {
-                object obj = ResourceManager.GetObject("dataButton", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
         internal static System.Drawing.Bitmap dataStandarOp {
             get {
                 object obj = ResourceManager.GetObject("dataStandarOp", resourceCulture);
@@ -476,6 +466,16 @@ namespace Citta_T1.Properties {
         internal static System.Drawing.Bitmap u72 {
             get {
                 object obj = ResourceManager.GetObject("u72", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap u721 {
+            get {
+                object obj = ResourceManager.GetObject("u721", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
