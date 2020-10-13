@@ -832,8 +832,11 @@
     <None Include="datas\text_gbk_1.txt" />
     <None Include="datas\text_utf8_1.txt" />
     <None Include="Resources\dataButton.bmp" />
-    <None Include="Resources\u72.png" />
-    <None Include="Resources\u721.png" />
+    <None Include="Resources\Image1.bmp" />
+    <None Include="res\datasource\u72.png" />
+    <None Include="res\datasource\u721.png" />
+    <None Include="Resources\Image1.png" />
+    <None Include="Resources\selectDrag.png" />
     <Content Include="res\displaypanel\blueshadow.png" />
     <Content Include="res\displaypanel\close.png" />
     <Content Include="res\displaypanel\maxunfold.png">
