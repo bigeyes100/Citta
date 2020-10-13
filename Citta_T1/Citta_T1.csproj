@@ -737,7 +737,6 @@
     <Content Include="Doc\Citta项目 C#编码风格规范.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\界面介绍2.png" />
     <None Include="Resources\pythonHelper1.png" />
     <None Include="Resources\pythonHelper2.png" />
     <None Include="Resources\pythonHelper3.png" />
@@ -759,8 +758,6 @@
     </Content>
     <None Include="res\toolbox\saveall.png" />
     <None Include="res\toolbox\reset.png" />
-    <None Include="res\toolbox\redo.png" />
-    <None Include="res\toolbox\undo.png" />
     <Content Include="res\opControl\releateOp.png" />
     <Content Include="res\opControl\wordFilterOp.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -864,28 +861,13 @@
     <Content Include="res\menu\help.png" />
     <None Include="res\toolbox\add.png" />
     <None Include="res\menu\modelstep.png" />
-    <Content Include="res\toolbox\background.png" />
     <Content Include="res\toolbox\clicksavebutton.png" />
-    <Content Include="res\toolbox\connect.png" />
     <None Include="res\toolbox\currentModelRunning.gif" />
     <None Include="res\toolbox\currentModelFin.png" />
     <None Include="res\toolbox\currentModelRunningBack.png" />
-    <Content Include="res\toolbox\difference.png" />
     <None Include="res\toolbox\div.png" />
-    <Content Include="res\toolbox\filter.png" />
-    <Content Include="res\toolbox\group.png" />
-    <Content Include="res\toolbox\histogram.png" />
-    <Content Include="res\toolbox\importfile.png" />
-    <Content Include="res\toolbox\intersection.png" />
-    <Content Include="res\toolbox\MoveOpBackground.png" />
-    <Content Include="res\toolbox\newfile.png" />
     <None Include="res\toolbox\pause.png" />
-    <Content Include="res\toolbox\RandomButton.png" />
     <None Include="res\toolbox\relation.png" />
-    <Content Include="res\toolbox\savefile.png" />
-    <Content Include="res\toolbox\typesetting.png" />
-    <Content Include="res\toolbox\more.png" />
-    <Content Include="res\toolbox\union.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
