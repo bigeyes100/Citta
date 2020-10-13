@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Org.BouncyCastle.Asn1.Crmf;
+using System;
 using System.Configuration;
 using System.IO;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Citta_T1.Utils
     class ConfigUtil
     {
         public static string DefaultWorkspaceDirectory = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "/FiberHomeIAOModelDocument";
+        public static string DefaultVersionType = "NonGreen";
         public static string TryGetAppSettingsByKey(string key, string defaultValue = "")
         {
             string value;

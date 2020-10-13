@@ -66,9 +66,12 @@ namespace Citta_T1.Core
         public static void SetTopToolBarControl(TopToolBarControl ttbc) { topToolBarControl = ttbc; }
 
         private static string workspaceDirectory;           // 用户模型工作目录
+        private static string versionType;
         public static string WorkspaceDirectory { get => workspaceDirectory; set => workspaceDirectory = value; }
+        public static string VersionType { get => versionType; set => versionType = value; }
 
         public const float Factor = 1.3F;
-
+        public const string GreenVersion = "Green";
+        public const string GreenPath = "source";
     }
 }
