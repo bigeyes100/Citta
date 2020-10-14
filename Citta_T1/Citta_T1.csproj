@@ -750,6 +750,7 @@
     </Content>
     <None Include="res\toolbox\run.png" />
     <None Include="res\toolbox\continual.png" />
+    <None Include="res\toolbox\importdata.png" />
     <Content Include="res\toolbox\importmodel.png" />
     <Content Include="sbin\sleep.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
