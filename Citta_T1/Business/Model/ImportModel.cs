@@ -9,8 +9,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
-
-namespace Citta_T1.Controls.Top
+namespace Citta_T1.Business.Model
 {
     public class ImportModel
     {
@@ -19,18 +18,18 @@ namespace Citta_T1.Controls.Top
             modelFilePath = string.Empty;
 
         }
-        private static ImportModel ExportModelInstance;
+        private static ImportModel ImportModelInstance;
         public static ImportModel GetInstance()
         {
-            if (ExportModelInstance == null)
+            if (ImportModelInstance == null)
             {
-                ExportModelInstance = new ImportModel();
+                ImportModelInstance = new ImportModel();
             }
-            return ExportModelInstance;
+            return ImportModelInstance;
         }
-        public  void ExportIaoFile(string userName)
+        public void ImportIaoFile(string userName)
         {
-            
+
             //获取导入模型路径
             OpenFileDialog fd = new OpenFileDialog
             {
@@ -47,11 +46,9 @@ namespace Citta_T1.Controls.Top
         }
         private void UnZipIaoFile(string fullFilePath, string userName)
         {
-            string newPath;
+            string newPath = fullFilePath;
             if (File.Exists(fullFilePath))
             {
-                // iao扩展名改为zip
-                newPath = Path.ChangeExtension(fullFilePath, "zip");
                 newPath = Path.Combine(Global.WorkspaceDirectory, userName, Path.GetFileName(newPath));
 
                 // 新用户导入不存在用户空间，需要创建
@@ -64,7 +61,7 @@ namespace Citta_T1.Controls.Top
             if (HasUnZipIaoFile(newPath, userName))
             {
                 // 脚本、数据源存储路径
-                string dirs = Path.Combine(this.modelDir, "_datas");
+                string dirs = Path.Combine(this.modelDir, "_data");
                 // 修改XML文件中数据源路径
                 RenameFile(dirs, this.modelFilePath);
                 // 将导入模型添加到左侧模型面板
@@ -72,14 +69,14 @@ namespace Citta_T1.Controls.Top
                 MessageBox.Show("模型导入成功。");
             }
 
-           
+
             //清场
             if (File.Exists(newPath))
                 File.Delete(newPath);
         }
         private string modelFilePath;
         private string modelDir;
-        private  bool HasUnZipIaoFile(string zipFilePath,string userName)
+        private bool HasUnZipIaoFile(string zipFilePath, string userName)
         {
             /*
              * 是否存在同名模型文档
@@ -91,9 +88,9 @@ namespace Citta_T1.Controls.Top
             string modelPath = string.Empty;
             string newZipFilePath = string.Empty;
             using (ZipInputStream s = new ZipInputStream(File.OpenRead(zipFilePath)))
-            {               
+            {
                 ZipEntry theEntry;
-                DialogResult result;              
+                DialogResult result;
                 while ((theEntry = s.GetNextEntry()) != null)
                 {
                     if (!Path.GetFileName(theEntry.Name).EndsWith(".xml"))
@@ -103,16 +100,16 @@ namespace Citta_T1.Controls.Top
                     modelPath = Path.Combine(Global.WorkspaceDirectory, userName, modelName);
                     newZipFilePath = Path.Combine(modelPath, Path.GetFileName(zipFilePath));
                 }
-                if(string.IsNullOrEmpty(fileName))
+                if (string.IsNullOrEmpty(fileName))
                     return !hasUnZip;
-                
-                this.modelDir= Path.Combine(Global.WorkspaceDirectory, userName, modelName);
+
+                this.modelDir = Path.Combine(Global.WorkspaceDirectory, userName, modelName);
                 this.modelFilePath = Path.Combine(this.modelDir, fileName);
                 // 是否包含同名模型文档
-   
+
                 if (CheckSameModelTitle(modelName))
                 {
-                    result = MessageBox.Show("模型文件:" + modelName + "已存在，是否覆盖该模型文档", "导入模型", MessageBoxButtons.OKCancel);                    
+                    result = MessageBox.Show("模型文件:" + modelName + "已存在，是否覆盖该模型文档", "导入模型", MessageBoxButtons.OKCancel);
                 }
                 else
                 {
@@ -155,27 +152,27 @@ namespace Citta_T1.Controls.Top
                 }
             }
         }
-        private void UnZipIaoFile(string modelPath, string zipFilePath,string newZipFilePath)
+        private void UnZipIaoFile(string modelPath, string zipFilePath, string newZipFilePath)
         {
-            Directory.CreateDirectory(modelPath);     
+            Directory.CreateDirectory(modelPath);
             File.Move(zipFilePath, newZipFilePath);
-            Utils.ZipAndUnZipUtil.UnZipFile(newZipFilePath);
+            Utils.ZipUtil.UnZipFile(newZipFilePath);
             File.Delete(newZipFilePath);
         }
-        private void RenameFile(string dirs,string fullFilePath)
+        private void RenameFile(string dirs, string fullFilePath)
         {
             Dictionary<string, string> dataSourcePath = new Dictionary<string, string>();
             if (Directory.Exists(dirs))
             {
                 DirectoryInfo dir0 = new DirectoryInfo(dirs);
-                FileInfo[] fsinfos0 = dir0.GetFiles();               
+                FileInfo[] fsinfos0 = dir0.GetFiles();
                 foreach (FileInfo fsinfo in fsinfos0)
                 {
                     // 建立数据源、脚本名称与路径对应字典
                     dataSourcePath[fsinfo.Name] = fsinfo.FullName;
                 }
             }
-            
+
             DirectoryInfo dir1 = new DirectoryInfo(Path.GetDirectoryName(fullFilePath));
             FileInfo[] fsinfos1 = dir1.GetFiles();
             foreach (FileInfo fsinfo in fsinfos1)
@@ -212,18 +209,18 @@ namespace Citta_T1.Controls.Top
                 XmlNodeList optionNode = node.SelectNodes("option");
                 if (optionNode == null)
                     continue;
- 
+
                 ReWriteNodePath(optionNode, dataSourcePath);
             }
             // python算子
             XmlNodeList pythonNodes = rootNode.SelectNodes("//ModelElement[subtype='PythonOperator']");
-           
+
             foreach (XmlNode node in pythonNodes)
             {
                 XmlNode optionNode = node.SelectSingleNode("option");
                 if (optionNode == null)
                     continue;
-                XmlNode oppNode= optionNode.SelectSingleNode("outputParamPath");
+                XmlNode oppNode = optionNode.SelectSingleNode("outputParamPath");
                 ReWriteNodePath(oppNode, dataSourcePath);
                 XmlNode bcNode = optionNode.SelectSingleNode("browseChosen");
                 ReWriteNodePath(bcNode, dataSourcePath);
@@ -231,13 +228,14 @@ namespace Citta_T1.Controls.Top
                 ReWriteNodePath(ppNode, dataSourcePath);
                 XmlNode cmdNode = optionNode.SelectSingleNode("cmd");
                 ReWriteCmdNode(cmdNode, dataSourcePath);
-
+                XmlNode pyParamNode = optionNode.SelectSingleNode("pyParam");
+                ReWriteCmdNode(pyParamNode, dataSourcePath);
             }
             xDoc.Save(fullFilePath);
         }
         private void ReWriteCmdNode(XmlNode cmdNode, Dictionary<string, string> dataSourcePath)
         {
-            if (cmdNode == null)
+            if (cmdNode == null||string.IsNullOrEmpty(cmdNode.InnerText))
                 return;
             Regex reg0 = new Regex(@"^(?<fpath>([a-zA-Z]:\\)([\s\.\-\w]+\\)*)(?<fname>[\w]+.[\w]+)");
             string[] cmd = cmdNode.InnerText.Split(' ');
@@ -247,7 +245,7 @@ namespace Citta_T1.Controls.Top
                 if (reg0.IsMatch(item))
                     paths[Path.GetFileName(item)] = item;
             }
-            foreach(string fileName in paths.Keys)
+            foreach (string fileName in paths.Keys)
             {
                 if (dataSourcePath.ContainsKey(fileName))
                     cmdNode.InnerText = cmdNode.InnerText.Replace(paths[fileName], dataSourcePath[fileName]);
@@ -261,13 +259,13 @@ namespace Citta_T1.Controls.Top
                     continue;
                 string name = Path.GetFileName(xmlNode.SelectSingleNode("path").InnerText);
                 if (dataSourcePath.ContainsKey(name))
-                    xmlNode.SelectSingleNode("path").InnerText= dataSourcePath[name];
+                    xmlNode.SelectSingleNode("path").InnerText = dataSourcePath[name];
 
             }
         }
         private void ReWriteNodePath(XmlNode node, Dictionary<string, string> dataSourcePath)
         {
-            if (node == null)
+            if (node == null||string.IsNullOrEmpty(node.InnerText))
                 return;
             string name = Path.GetFileName(node.InnerText);
             if (dataSourcePath.ContainsKey(name))
@@ -277,7 +275,7 @@ namespace Citta_T1.Controls.Top
         {
             if (CheckSameModelTitle(modelTitle))
                 return;
-               
+
             Global.GetMyModelControl().AddModel(modelTitle);
             // 菜单项可以打开
             Global.GetMyModelControl().EnableClosedDocumentMenu(modelTitle);
@@ -294,11 +292,11 @@ namespace Citta_T1.Controls.Top
             //Panel中同名模型文档
             foreach (ModelTitleControl titleControl in Global.GetModelTitlePanel().ModelTitleControls)
             {
-                if(titleControl.ModelTitle == modelTitle)
+                if (titleControl.ModelTitle == modelTitle)
                     return hasSameName;
             }
             return !hasSameName;
         }
-        
+
     }
 }

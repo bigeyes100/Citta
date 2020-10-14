@@ -403,7 +403,7 @@ namespace Citta_T1
 
         private void ImportModelButton_Click(object sender, EventArgs e)
         {
-           Citta_T1.Controls.Top.ImportModel.GetInstance().ExportIaoFile(this.userName);
+           Citta_T1.Business.Model.ImportModel.GetInstance().ImportIaoFile(this.userName);
         }
         private void NewModelButton_Click(object sender, EventArgs e)
         {
