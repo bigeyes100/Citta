@@ -132,6 +132,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\DataSource\DataSourceInfo.cs" />
+    <Compile Include="Business\Model\ExportModel.cs" />
+    <Compile Include="Business\Model\ImportModel.cs" />
     <Compile Include="Business\Model\World\WorldMap.cs" />
     <Compile Include="Business\Option\BcpInfo.cs" />
     <Compile Include="Business\Option\ColumnInfo.cs" />
@@ -161,7 +163,6 @@
     <Compile Include="Controls\Move\MoveBaseControl.Designer.cs">
       <DependentUpon>MoveBaseControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Top\ImportModel.cs" />
     <Compile Include="Core\UndoRedo\Command\BatchDeleteCommand.cs" />
     <Compile Include="Core\UndoRedo\Command\BatchMoveCommand.cs" />
     <Compile Include="Core\UndoRedo\Command\ElementAddCommand.cs" />
@@ -491,7 +492,7 @@
     <Compile Include="Utils\ControlUtil.cs" />
     <Compile Include="Utils\LogUtil.cs" />
     <Compile Include="Utils\OpUtil.cs" />
-    <Compile Include="Utils\ZipAndUnZipUtil.cs" />
+    <Compile Include="Utils\ZipUtil.cs" />
     <EmbeddedResource Include="Controls\CanvasPanel.resx">
       <DependentUpon>CanvasPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -752,6 +753,7 @@
     </Content>
     <None Include="res\toolbox\run.png" />
     <None Include="res\toolbox\continual.png" />
+    <None Include="res\toolbox\importdata.png" />
     <Content Include="res\toolbox\importmodel.png" />
     <Content Include="sbin\sleep.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -829,11 +831,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\X.jpg" />
-    <None Include="datas\text.txt" />
-    <None Include="datas\text_gbk.txt" />
-    <None Include="datas\text_utf8.txt" />
-    <None Include="datas\text_gbk_1.txt" />
-    <None Include="datas\text_utf8_1.txt" />
     <None Include="res\datasource\u72.png" />
     <None Include="res\datasource\u721.png" />
     <Content Include="res\displaypanel\blueshadow.png" />

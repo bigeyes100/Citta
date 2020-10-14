@@ -211,12 +211,12 @@ namespace Citta_T1.Controls.Flow
             if (flag)
             {
                 this.remarkPictureBox.Image = global::Citta_T1.Properties.Resources.selectRemark;
-                this.remarkPictureBox.Location = new System.Drawing.Point(124, 2);
+                this.remarkPictureBox.Location = new System.Drawing.Point(126, 2);
                 this.remarkPictureBox.Size = new System.Drawing.Size(29, 29);
                 return;
             }
             this.remarkPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("remarkPictureBox.Image")));
-            this.remarkPictureBox.Location = new System.Drawing.Point(129, 4);
+            this.remarkPictureBox.Location = new System.Drawing.Point(132, 4);
             this.remarkPictureBox.Size = new System.Drawing.Size(23, 23);
         }
         private void FrameChange(bool flag)
