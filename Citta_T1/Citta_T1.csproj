@@ -129,6 +129,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\DataSource\DataSourceInfo.cs" />
+    <Compile Include="Business\Model\ExportModel.cs" />
+    <Compile Include="Business\Model\ImportModel.cs" />
     <Compile Include="Business\Model\World\WorldMap.cs" />
     <Compile Include="Business\Option\BcpInfo.cs" />
     <Compile Include="Business\Option\ColumnInfo.cs" />
@@ -158,7 +160,6 @@
     <Compile Include="Controls\Move\MoveBaseControl.Designer.cs">
       <DependentUpon>MoveBaseControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Top\ImportModel.cs" />
     <Compile Include="Core\UndoRedo\Command\BatchDeleteCommand.cs" />
     <Compile Include="Core\UndoRedo\Command\BatchMoveCommand.cs" />
     <Compile Include="Core\UndoRedo\Command\ElementAddCommand.cs" />
@@ -488,7 +489,7 @@
     <Compile Include="Utils\ControlUtil.cs" />
     <Compile Include="Utils\LogUtil.cs" />
     <Compile Include="Utils\OpUtil.cs" />
-    <Compile Include="Utils\ZipAndUnZipUtil.cs" />
+    <Compile Include="Utils\ZipUtil.cs" />
     <EmbeddedResource Include="Controls\CanvasPanel.resx">
       <DependentUpon>CanvasPanel.cs</DependentUpon>
     </EmbeddedResource>
