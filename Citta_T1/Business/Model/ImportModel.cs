@@ -107,7 +107,7 @@ namespace Citta_T1.Business.Model
                 this.modelFilePath = Path.Combine(this.modelDir, fileName);
                 // 是否包含同名模型文档
 
-                if (CheckSameModelTitle(modelName))
+                if (IsSameModelTitle(modelName))
                 {
                     result = MessageBox.Show("模型文件:" + modelName + "已存在，是否覆盖该模型文档", "导入模型", MessageBoxButtons.OKCancel);
                 }
@@ -273,29 +273,18 @@ namespace Citta_T1.Business.Model
         }
         private void MyModelControlAddItem(string modelTitle)
         {
-            if (CheckSameModelTitle(modelTitle))
+            if (IsSameModelTitle(modelTitle))
                 return;
 
             Global.GetMyModelControl().AddModel(modelTitle);
             // 菜单项可以打开
             Global.GetMyModelControl().EnableClosedDocumentMenu(modelTitle);
         }
-        private bool CheckSameModelTitle(string modelTitle)
+        private bool IsSameModelTitle(string modelTitle)
         {
-            bool hasSameName = true;
-            //左侧面板同名模型文档
-            foreach (Control control in Global.GetMyModelControl().Controls)
-            {
-                if (control is ModelButton && (control as ModelButton).ModelTitle == modelTitle)
-                    return hasSameName;
-            }
-            //Panel中同名模型文档
-            foreach (ModelTitleControl titleControl in Global.GetModelTitlePanel().ModelTitleControls)
-            {
-                if (titleControl.ModelTitle == modelTitle)
-                    return hasSameName;
-            }
-            return !hasSameName;
+            //本地和内存中同名模型文档判断
+            return (Global.GetMyModelControl().ContainModel(modelTitle) || Global.GetModelTitlePanel().ContainModel(modelTitle));
+
         }
 
     }
