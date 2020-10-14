@@ -467,8 +467,11 @@ namespace Citta_T1.Business.Schedule
                     p.WaitForExit(); //等待进程结束，等待时间为指定的毫秒
 
                     if (p.ExitCode == 1)
+                    {
                         errorMessage = "执行程序非正常退出，请检查程序后再运行。";
-                    UpdateLogDelegate("执行程序非正常退出，请检查程序后再运行。");
+                        UpdateLogDelegate("执行程序非正常退出，请检查程序后再运行。");
+                    }
+
                 }
             }
             catch(System.InvalidOperationException)
