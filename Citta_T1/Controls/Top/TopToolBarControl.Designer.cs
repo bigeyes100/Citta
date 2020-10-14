@@ -71,7 +71,7 @@
             // unionButton
             // 
             this.unionButton.Image = ((System.Drawing.Image)(resources.GetObject("unionButton.Image")));
-            this.unionButton.Location = new System.Drawing.Point(233, 1);
+            this.unionButton.Location = new System.Drawing.Point(167, 0);
             this.unionButton.Name = "unionButton";
             this.unionButton.Size = new System.Drawing.Size(60, 32);
             this.unionButton.TabIndex = 0;
@@ -93,7 +93,7 @@
             // filterButton
             // 
             this.filterButton.Image = ((System.Drawing.Image)(resources.GetObject("filterButton.Image")));
-            this.filterButton.Location = new System.Drawing.Point(299, 1);
+            this.filterButton.Location = new System.Drawing.Point(167, 0);
             this.filterButton.Name = "filterButton";
             this.filterButton.Size = new System.Drawing.Size(60, 32);
             this.filterButton.TabIndex = 0;
@@ -104,7 +104,7 @@
             // randomButton
             // 
             this.randomButton.Image = ((System.Drawing.Image)(resources.GetObject("randomButton.Image")));
-            this.randomButton.Location = new System.Drawing.Point(375, 1);
+            this.randomButton.Location = new System.Drawing.Point(167, 0);
             this.randomButton.Name = "randomButton";
             this.randomButton.Size = new System.Drawing.Size(69, 32);
             this.randomButton.TabIndex = 0;
@@ -115,9 +115,9 @@
             // formatButton
             // 
             this.formatButton.Image = ((System.Drawing.Image)(resources.GetObject("formatButton.Image")));
-            this.formatButton.Location = new System.Drawing.Point(365, 1);
+            this.formatButton.Location = new System.Drawing.Point(168, 1);
             this.formatButton.Name = "formatButton";
-            this.formatButton.Size = new System.Drawing.Size(86, 32);
+            this.formatButton.Size = new System.Drawing.Size(87, 32);
             this.formatButton.TabIndex = 0;
             this.formatButton.TabStop = false;
             this.formatButton.UseVisualStyleBackColor = true;
@@ -126,7 +126,7 @@
             // moreButton
             // 
             this.moreButton.Image = ((System.Drawing.Image)(resources.GetObject("moreButton.Image")));
-            this.moreButton.Location = new System.Drawing.Point(457, 5);
+            this.moreButton.Location = new System.Drawing.Point(260, 5);
             this.moreButton.Name = "moreButton";
             this.moreButton.Size = new System.Drawing.Size(25, 24);
             this.moreButton.TabIndex = 0;
@@ -152,7 +152,7 @@
             this.undoButton.Image = ((System.Drawing.Image)(resources.GetObject("undoButton.Image")));
             this.undoButton.Location = new System.Drawing.Point(0, 1);
             this.undoButton.Name = "undoButton";
-            this.undoButton.Size = new System.Drawing.Size(78, 32);
+            this.undoButton.Size = new System.Drawing.Size(79, 32);
             this.undoButton.TabIndex = 0;
             this.undoButton.TabStop = false;
             this.undoButton.UseVisualStyleBackColor = true;
@@ -162,9 +162,9 @@
             // 
             this.redoButton.Enabled = false;
             this.redoButton.Image = ((System.Drawing.Image)(resources.GetObject("redoButton.Image")));
-            this.redoButton.Location = new System.Drawing.Point(83, 1);
+            this.redoButton.Location = new System.Drawing.Point(84, 1);
             this.redoButton.Name = "redoButton";
-            this.redoButton.Size = new System.Drawing.Size(78, 32);
+            this.redoButton.Size = new System.Drawing.Size(79, 32);
             this.redoButton.TabIndex = 0;
             this.redoButton.TabStop = false;
             this.redoButton.UseVisualStyleBackColor = true;
@@ -185,7 +185,7 @@
             this.Controls.Add(this.collideButton);
             this.Controls.Add(this.relateButton);
             this.Name = "TopToolBarControl";
-            this.Size = new System.Drawing.Size(488, 33);
+            this.Size = new System.Drawing.Size(289, 33);
             this.Load += new System.EventHandler(this.TopToolBarControl_Load);
             this.ResumeLayout(false);
 

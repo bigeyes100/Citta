@@ -228,11 +228,6 @@ namespace Citta_T1.Business.Model
             {
                 pyFullPath.InnerText = newPath;
             }
-            XmlNode browseChosen = node.SelectSingleNode("browseChosen");
-            if (browseChosen != null && string.Equals(browseChosen.InnerText, path))
-            {
-                browseChosen.InnerText = newPath;
-            }
             XmlNode pyParam = node.SelectSingleNode("pyParam");
             if (pyParam != null && pyParam.InnerText.Contains(path))
             {
