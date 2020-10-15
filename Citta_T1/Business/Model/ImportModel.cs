@@ -46,19 +46,10 @@ namespace Citta_T1.Business.Model
         }
         private void UnZipIaoFile(string fullFilePath, string userName)
         {
-            string newPath = fullFilePath;
-            if (File.Exists(fullFilePath))
-            {
-                newPath = Path.Combine(Global.WorkspaceDirectory, userName, Path.GetFileName(newPath));
-
-                // 新用户导入不存在用户空间，需要创建
-                if (!Directory.Exists(Path.GetDirectoryName(newPath)))
-                    Directory.CreateDirectory(Path.GetDirectoryName(newPath));
-                File.Copy(fullFilePath, newPath, true);
-            }
-            else
+            ;
+            if (!File.Exists(fullFilePath))
                 return;
-            if (HasUnZipIaoFile(newPath, userName))
+            if (HasUnZipIaoFile(fullFilePath, userName))
             {
                 // 脚本、数据源存储路径
                 string dirs = Path.Combine(this.modelDir, "_data");
@@ -69,10 +60,6 @@ namespace Citta_T1.Business.Model
                 MessageBox.Show("模型导入成功。");
             }
 
-
-            //清场
-            if (File.Exists(newPath))
-                File.Delete(newPath);
         }
         private string modelFilePath;
         private string modelDir;
@@ -86,11 +73,10 @@ namespace Citta_T1.Business.Model
             string fileName = string.Empty;
             string modelName = string.Empty;
             string modelPath = string.Empty;
-            string newZipFilePath = string.Empty;
+            DialogResult result;
             using (ZipInputStream s = new ZipInputStream(File.OpenRead(zipFilePath)))
             {
                 ZipEntry theEntry;
-                DialogResult result;
                 while ((theEntry = s.GetNextEntry()) != null)
                 {
                     if (!Path.GetFileName(theEntry.Name).EndsWith(".xml"))
@@ -98,68 +84,41 @@ namespace Citta_T1.Business.Model
                     fileName = Path.GetFileName(theEntry.Name);
                     modelName = Path.GetFileNameWithoutExtension(theEntry.Name);
                     modelPath = Path.Combine(Global.WorkspaceDirectory, userName, modelName);
-                    newZipFilePath = Path.Combine(modelPath, Path.GetFileName(zipFilePath));
-                }
-                if (string.IsNullOrEmpty(fileName))
-                    return !hasUnZip;
-
-                this.modelDir = Path.Combine(Global.WorkspaceDirectory, userName, modelName);
-                this.modelFilePath = Path.Combine(this.modelDir, fileName);
-                // 是否包含同名模型文档
-
-                if (IsSameModelTitle(modelName))
-                {
-                    result = MessageBox.Show("模型文件:" + modelName + "已存在，是否覆盖该模型文档", "导入模型", MessageBoxButtons.OKCancel);
-                }
-                else
-                {
-                    //解压文件
-                    s.Close();
-                    UnZipIaoFile(modelPath, zipFilePath, newZipFilePath);
-                    return hasUnZip;
-                }
-                if (result == DialogResult.OK)
-                {
-                    // 是否关闭同名的ModelTitle
-                    foreach (ModelTitleControl titleControl in Global.GetModelTitlePanel().ModelTitleControls)
-                    {
-                        if (!string.Equals(titleControl.ModelTitle, modelName))
-                            continue;
-                        if (!titleControl.Selected)
-                            break;
-                        MessageBox.Show("模型文件:" + modelName + "已打开，请关闭该文档并重新进行导入", "关闭模型文档");
-                        //删除导入的zip压缩包
-                        s.Close();
-                        if (File.Exists(zipFilePath))
-                            File.Delete(zipFilePath);
-                        return !hasUnZip;
-                    }
-                    // 删除原始xml文档                    
-                    if (Directory.Exists(modelPath))
-                        Directory.Delete(modelPath, true);
-                    //解压文件
-                    s.Close();
-                    UnZipIaoFile(modelPath, zipFilePath, newZipFilePath);
-                    return hasUnZip;
-                }
-                else
-                {
-                    //删除导入的zip压缩包
-                    s.Close();
-                    if (File.Exists(zipFilePath))
-                        File.Delete(zipFilePath);
-                    return !hasUnZip;
+                    break;
                 }
             }
+
+            // 未找到xml文件
+            if (string.IsNullOrEmpty(fileName))
+                return !hasUnZip;
+            this.modelDir = Path.Combine(Global.WorkspaceDirectory, userName, modelName);
+            this.modelFilePath = Path.Combine(this.modelDir, fileName);
+            // 是否包含同名模型文档
+            if (!IsSameModelTitle(modelName))
+            {
+                //解压文件   
+                Utils.ZipUtil.UnZipFile(zipFilePath);
+                return hasUnZip;
+            }
+
+            result = MessageBox.Show("模型文件:" + modelName + "已存在，是否覆盖该模型文档", "导入模型", MessageBoxButtons.OKCancel);
+            if (result == DialogResult.Cancel)
+                return !hasUnZip;
+
+            if (Global.GetModelTitlePanel().ContainModel(modelName))
+            {
+                MessageBox.Show("模型文件:" + modelName + "已打开，请关闭该文档并重新进行导入", "关闭模型文档");
+                return !hasUnZip;
+            }
+            // 删除原始模型文件、解压新文件                    
+            if (Directory.Exists(modelPath))
+                Directory.Delete(modelPath, true);
+            Utils.ZipUtil.UnZipFile(zipFilePath);
+            return hasUnZip;
+
         }
-        private void UnZipIaoFile(string modelPath, string zipFilePath, string newZipFilePath)
-        {
-            Directory.CreateDirectory(modelPath);
-            File.Move(zipFilePath, newZipFilePath);
-            Utils.ZipUtil.UnZipFile(newZipFilePath);
-            File.Delete(newZipFilePath);
-        }
-        private void RenameFile(string dirs, string fullFilePath)
+
+        private void RenameFile(string dirs, string newModelFilePath)
         {
             Dictionary<string, string> dataSourcePath = new Dictionary<string, string>();
             if (Directory.Exists(dirs))
@@ -173,7 +132,7 @@ namespace Citta_T1.Business.Model
                 }
             }
 
-            DirectoryInfo dir1 = new DirectoryInfo(Path.GetDirectoryName(fullFilePath));
+            DirectoryInfo dir1 = new DirectoryInfo(Path.GetDirectoryName(newModelFilePath));
             FileInfo[] fsinfos1 = dir1.GetFiles();
             foreach (FileInfo fsinfo in fsinfos1)
             {
@@ -185,7 +144,7 @@ namespace Citta_T1.Business.Model
                 return;
 
             XmlDocument xDoc = new XmlDocument();
-            xDoc.Load(fullFilePath);
+            xDoc.Load(newModelFilePath);
             XmlNode rootNode = xDoc.SelectSingleNode("ModelDocument");
             // 数据源
             XmlNodeList nodes = rootNode.SelectNodes("//ModelElement[type='DataSource']");
@@ -231,13 +190,13 @@ namespace Citta_T1.Business.Model
                 XmlNode pyParamNode = optionNode.SelectSingleNode("pyParam");
                 ReWriteCmdNode(pyParamNode, dataSourcePath);
             }
-            xDoc.Save(fullFilePath);
+            xDoc.Save(newModelFilePath);
         }
         private void ReWriteCmdNode(XmlNode cmdNode, Dictionary<string, string> dataSourcePath)
         {
-            if (cmdNode == null||string.IsNullOrEmpty(cmdNode.InnerText))
+            if (cmdNode == null || string.IsNullOrEmpty(cmdNode.InnerText))
                 return;
-            Regex reg0 = new Regex(@"^(?<fpath>([a-zA-Z]:\\)([\s\.\-\w]+\\)*)(?<fname>[\w]+.[\w]+)");
+            Regex reg0 = new Regex(Global.regPath);
             string[] cmd = cmdNode.InnerText.Split(' ');
             Dictionary<string, string> paths = new Dictionary<string, string>();
             foreach (string item in cmd)
@@ -265,7 +224,7 @@ namespace Citta_T1.Business.Model
         }
         private void ReWriteNodePath(XmlNode node, Dictionary<string, string> dataSourcePath)
         {
-            if (node == null||string.IsNullOrEmpty(node.InnerText))
+            if (node == null || string.IsNullOrEmpty(node.InnerText))
                 return;
             string name = Path.GetFileName(node.InnerText);
             if (dataSourcePath.ContainsKey(name))
@@ -273,7 +232,7 @@ namespace Citta_T1.Business.Model
         }
         private void MyModelControlAddItem(string modelTitle)
         {
-            if (IsSameModelTitle(modelTitle))
+            if (Global.GetMyModelControl().ContainModel(modelTitle))
                 return;
 
             Global.GetMyModelControl().AddModel(modelTitle);

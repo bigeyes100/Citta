@@ -6,6 +6,7 @@ using Citta_T1.Controls.Flow;
 using Citta_T1.Controls.Left;
 using Citta_T1.Controls.Title;
 using Citta_T1.Controls.Top;
+using System.Text.RegularExpressions;
 
 namespace Citta_T1.Core
 {
@@ -73,5 +74,6 @@ namespace Citta_T1.Core
         public const float Factor = 1.3F;
         public const string GreenVersion = "Green";
         public const string GreenPath = "source";
+        public const string regPath = @"^(?<fpath>([a-zA-Z]:\\)([\s\.\-\w]+\\)*)(?<fname>[\w]+.[\w]+)";
     }
 }

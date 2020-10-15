@@ -14,9 +14,9 @@ namespace Citta_T1.Utils
         /// </summary>
         public static void CreateZip(string srcFilePath, string dstZipFilePath)
         {
-            (new FastZip()).CreateZip(dstZipFilePath, srcFilePath, true, ".*\\.(?!md).*$");        
+            (new FastZip()).CreateZip(dstZipFilePath, srcFilePath, true, ".*\\.(?!md).*$");
         }
-    
+
         /// <summary>
         /// 解压文件
         /// </summary>
@@ -24,7 +24,7 @@ namespace Citta_T1.Utils
         {
             if (!File.Exists(zipFilePath))
             {
-                MessageBox.Show("未能找到: "+ zipFilePath); ;
+                MessageBox.Show("未能找到: " + zipFilePath); ;
                 return;
             }
             // 获取模型文件名称
@@ -35,11 +35,11 @@ namespace Citta_T1.Utils
                 ZipEntry theEntry;
                 while ((theEntry = s.GetNextEntry()) != null)
                 {
-                    string fileName = Path.GetFileName(theEntry.Name);    
-                    if (!string.IsNullOrEmpty(fileName)&& fileName.EndsWith(".xml"))
+                    string fileName = Path.GetFileName(theEntry.Name);
+                    if (!string.IsNullOrEmpty(fileName) && fileName.EndsWith(".xml"))
                     {
                         modelTitle = Path.GetFileNameWithoutExtension(fileName);
-                        break;                           
+                        break;
                     }
                 }
             }
@@ -47,8 +47,8 @@ namespace Citta_T1.Utils
             string targetPath = Path.Combine(workPath, modelTitle);
             Directory.CreateDirectory(workPath);
 
-            (new FastZip()).ExtractZip(zipFilePath, targetPath,"");
-           
+            (new FastZip()).ExtractZip(zipFilePath, targetPath, "");
+
         }
 
 
