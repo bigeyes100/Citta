@@ -50,17 +50,25 @@ namespace Citta_T1
         }
         private static void RunByVersion()
         {
-            if (Global.VersionType.Equals(Global.GreenVersion))
+            string userName = "IAO";
+            LoginForm logingform = new LoginForm();
+            if (Global.VersionType.Equals(Global.PortableSoftware))
             {
-                string userName = "IAO";
                 LoginInfo lgInfo = new LoginInfo();
                 lgInfo.CreatNewXml();
                 lgInfo.WriteUserInfo(userName);
                 lgInfo.WriteLastLogin(userName);
                 Application.Run(new MainForm(userName));
+            }  
+            else if (logingform.ShowDialog() == DialogResult.OK)
+            {
+                Application.Run(new MainForm(Global.Username)); //主窗体 
             }
-            else
-                Application.Run(new LoginForm());       
+            else 
+            {
+                Application.Exit();
+            }
+                     
         }
 
         private static void ConfigProgram()
@@ -77,7 +85,7 @@ namespace Citta_T1
                 workspaceDirectory = Path.Combine(Directory.GetCurrentDirectory(), "FiberHomeIAOModelDocument");
             Global.WorkspaceDirectory = workspaceDirectory;
             Global.VersionType = ConfigUtil.TryGetAppSettingsByKey("versionType", ConfigUtil.DefaultVersionType);
-            if (Global.VersionType.Equals(Global.GreenVersion))
+            if (Global.VersionType.Equals(Global.PortableSoftware))
                 Global.WorkspaceDirectory = Path.Combine(System.Environment.CurrentDirectory, Global.GreenPath);
         }
 
