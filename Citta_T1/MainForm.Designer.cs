@@ -392,7 +392,7 @@ namespace Citta_T1
             this.saveAllButton.BackColor = System.Drawing.Color.White;
             this.saveAllButton.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.saveAllButton.Image = global::Citta_T1.Properties.Resources.saveall;
-            this.saveAllButton.Location = new System.Drawing.Point(368, 9);
+            this.saveAllButton.Location = new System.Drawing.Point(392, 9);
             this.saveAllButton.Name = "saveAllButton";
             this.saveAllButton.Size = new System.Drawing.Size(104, 32);
             this.saveAllButton.TabIndex = 3;
@@ -404,10 +404,10 @@ namespace Citta_T1
             // 
             this.ImportButton.BackColor = System.Drawing.Color.White;
             this.ImportButton.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ImportButton.Image = ((System.Drawing.Image)(resources.GetObject("ImportButton.Image")));
+            this.ImportButton.Image = global::Citta_T1.Properties.Resources.importdata;
             this.ImportButton.Location = new System.Drawing.Point(88, 9);
             this.ImportButton.Name = "ImportButton";
-            this.ImportButton.Size = new System.Drawing.Size(79, 32);
+            this.ImportButton.Size = new System.Drawing.Size(103, 32);
             this.ImportButton.TabIndex = 2;
             this.toolTip1.SetToolTip(this.ImportButton, "导入本地数据文件,支持bcp,cvs,txt,xls四种格式");
             this.ImportButton.UseVisualStyleBackColor = false;
@@ -418,7 +418,7 @@ namespace Citta_T1
             this.saveModelButton.BackColor = System.Drawing.Color.White;
             this.saveModelButton.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.saveModelButton.Image = ((System.Drawing.Image)(resources.GetObject("saveModelButton.Image")));
-            this.saveModelButton.Location = new System.Drawing.Point(283, 9);
+            this.saveModelButton.Location = new System.Drawing.Point(307, 9);
             this.saveModelButton.Name = "saveModelButton";
             this.saveModelButton.Size = new System.Drawing.Size(79, 32);
             this.saveModelButton.TabIndex = 1;
@@ -444,7 +444,7 @@ namespace Citta_T1
             this.importModelButton.BackColor = System.Drawing.Color.White;
             this.importModelButton.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.importModelButton.Image = global::Citta_T1.Properties.Resources.importmodel;
-            this.importModelButton.Location = new System.Drawing.Point(173, 9);
+            this.importModelButton.Location = new System.Drawing.Point(197, 9);
             this.importModelButton.Name = "importModelButton";
             this.importModelButton.Size = new System.Drawing.Size(104, 32);
             this.importModelButton.TabIndex = 0;

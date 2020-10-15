@@ -14,11 +14,7 @@ namespace Citta_T1.Utils
         /// </summary>
         public static void CreateZip(string srcFilePath, string dstZipFilePath)
         {
-            if (!srcFilePath.EndsWith("\\"))
-                srcFilePath += System.IO.Path.DirectorySeparatorChar;
-
-            (new FastZip()).CreateZip(dstZipFilePath, srcFilePath, true, ".*\\.(?!md).*$");
-          
+            (new FastZip()).CreateZip(dstZipFilePath, srcFilePath, true, ".*\\.(?!md).*$");        
         }
     
         /// <summary>
@@ -28,7 +24,7 @@ namespace Citta_T1.Utils
         {
             if (!File.Exists(zipFilePath))
             {
-                MessageBox.Show($"未能找到: "+ zipFilePath); ;
+                MessageBox.Show("未能找到: "+ zipFilePath); ;
                 return;
             }
             // 获取模型文件名称
@@ -48,9 +44,8 @@ namespace Citta_T1.Utils
                 }
             }
             string workPath = Path.Combine(Global.WorkspaceDirectory, Global.GetMainForm().UserName);
-            string targetPath = Path.Combine(Global.WorkspaceDirectory, Global.GetMainForm().UserName, modelTitle);
-            if (!Directory.Exists(workPath))
-                Directory.CreateDirectory(workPath);
+            string targetPath = Path.Combine(workPath, modelTitle);
+            Directory.CreateDirectory(workPath);
 
             (new FastZip()).ExtractZip(zipFilePath, targetPath,"");
            
