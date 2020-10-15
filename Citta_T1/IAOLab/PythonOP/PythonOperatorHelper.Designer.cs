@@ -139,7 +139,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(888, 413);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "脚本参数配置说明";
+            this.tabPage2.Text = "step1.脚本参数配置说明";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // panel3
@@ -227,7 +227,7 @@
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(888, 413);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "结果展示配置说明";
+            this.tabPage3.Text = "step2.结果展示配置说明";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // panel4

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>PInvoke.Kernel32</id>
+    <version>0.7.78</version>
+    <title>PInvoke.Kernel32</title>
+    <authors>Andrew Arnott</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <projectUrl>https://github.com/dotnet/pinvoke</projectUrl>
+    <description>P/Invoke methods for the Windows Kernel32.dll.</description>
+    <releaseNotes>https://github.com/dotnet/pinvoke/releases/tag/v0.7.78</releaseNotes>
+    <copyright>Copyright © .NET Foundation and Contributors</copyright>
+    <repository type="git" url="https://github.com/dotnet/pinvoke" commit="4dd1951cfc85248c654ef147897303b2177c15e9" />
+    <dependencies>
+      <group targetFramework=".NETFramework4.5">
+        <dependency id="PInvoke.Windows.Core" version="0.7.78" exclude="Build,Analyzers" />
+        <dependency id="System.Threading.Tasks.Extensions" version="4.5.4" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETFramework4.6">
+        <dependency id="PInvoke.Windows.Core" version="0.7.78" exclude="Build,Analyzers" />
+        <dependency id="System.Threading.Tasks.Extensions" version="4.5.4" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="UAP10.0">
+        <dependency id="PInvoke.Windows.Core" version="0.7.78" exclude="Build,Analyzers" />
+        <dependency id="System.Threading.Tasks.Extensions" version="4.5.4" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="PInvoke.Windows.Core" version="0.7.78" exclude="Build,Analyzers" />
+        <dependency id="System.Threading.Tasks.Extensions" version="4.5.4" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

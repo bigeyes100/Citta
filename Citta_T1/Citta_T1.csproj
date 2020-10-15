@@ -72,6 +72,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
       <HintPath>..\ThirdPartyLibrary\Portable.BouncyCastle.1.8.6\lib\net40\BouncyCastle.Crypto.dll</HintPath>
@@ -112,6 +115,9 @@
     <Reference Include="NPOI.OpenXmlFormats, Version=2.5.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ThirdPartyLibrary\NPOI.2.5.1\lib\net45\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="PInvoke.Kernel32">
+      <HintPath>..\ThirdPartyLibrary\pinvoke.kernel32\0.7.78\lib\net45\PInvoke.Kernel32.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -738,12 +744,13 @@
     <Content Include="Doc\Citta项目 C#编码风格规范.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\pythonHelper1.png" />
-    <None Include="Resources\pythonHelper2.png" />
-    <None Include="Resources\pythonHelper3.png" />
-    <None Include="Resources\pythonHelper4.png" />
-    <None Include="Resources\pythonHelper5.png" />
-    <None Include="Resources\pythonHelper6.png" />
+    <Content Include="Icon.ico" />
+    <Content Include="res\datasource\pythonHelper1.png" />
+    <Content Include="res\datasource\pythonHelper2.png" />
+    <Content Include="res\datasource\pythonHelper3.png" />
+    <Content Include="res\datasource\pythonHelper4.png" />
+    <Content Include="res\datasource\pythonHelper5.png" />
+    <Content Include="res\datasource\pythonHelper6.png" />
     <Content Include="res\flow\flow.png" />
     <Content Include="res\Icon\Icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
