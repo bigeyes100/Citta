@@ -14,13 +14,13 @@ namespace Citta_T1.Business.Model
     {
         private string dataPath;
         private string finallyName;
-        private string tmpModelPath;
+        private string newModelPath;
         private string FullXmlFilePath;
         public ExportModel()
         {
             this.dataPath = string.Empty;
             this.finallyName = string.Empty;
-            this.tmpModelPath = string.Empty;
+            this.newModelPath = string.Empty;
             this.FullXmlFilePath = string.Empty;
         }
 
@@ -35,18 +35,18 @@ namespace Citta_T1.Business.Model
         }
         public void Export(string FullXmlFilePath)
         {
-            //模型文档不存在返回
+            // 模型文档不存在返回
             if (!File.Exists(FullXmlFilePath))
             {
                 MessageBox.Show("模型文档不存在，可能已被删除");
                 return;
             }
             this.FullXmlFilePath = FullXmlFilePath;
-            //准备要导出的模型文档
+            // 准备要导出的模型文档
             if (!CopyModelAndDataFiles())
                 return;
 
-            //导出Iao模型
+            // 导出Iao模型
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.AddExtension = true;
             saveFileDialog1.Filter = "模型文件(*.iao)|*.iao"; //文件类型
@@ -54,27 +54,29 @@ namespace Citta_T1.Business.Model
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 string fileName = saveFileDialog1.FileName;
-                Utils.ZipUtil.CreateZip(Path.GetDirectoryName(FullXmlFilePath), fileName);
+                Utils.ZipUtil.CreateZip(newModelPath, fileName);
                 MessageBox.Show("模型导出成功,存储路径：" + fileName);
 
             }
 
-            // 清场，删除data文件夹，删除临时模型文件xml
-            if (Directory.Exists(dataPath))
-                Directory.Delete(dataPath, true);
-            if (File.Exists(FullXmlFilePath))
-                File.Delete(FullXmlFilePath);
-            if (File.Exists(tmpModelPath))
-                File.Move(tmpModelPath, FullXmlFilePath);
+            // 清场
+            if (Directory.Exists(newModelPath))
+                Directory.Delete(newModelPath, true);
+
+
         }
         private bool CopyModelAndDataFiles()
         {
+
             string modelPath = Path.GetDirectoryName(this.FullXmlFilePath);
-            this.tmpModelPath = Path.Combine(modelPath, "_" + Path.GetFileNameWithoutExtension(this.FullXmlFilePath) + ".md");
-            // tmpModelPath为模型xml副本
-            File.Copy(this.FullXmlFilePath, tmpModelPath, true);
+            string modelName = Path.GetFileNameWithoutExtension(this.FullXmlFilePath);
+            newModelPath = Path.Combine(modelPath, modelName);
+            Directory.CreateDirectory(newModelPath);
+            string[] filePaths = Directory.GetFiles(modelPath, "*.*");
+            foreach (string file in filePaths)
+                File.Copy(file, Path.Combine(newModelPath, Path.GetFileName(file)), true);
             // 创建存储数据的_data文件夹
-            this.dataPath = Path.Combine(modelPath, "_data");
+            this.dataPath = Path.Combine(newModelPath, "_data");
             Directory.CreateDirectory(dataPath);
             return CopyDataSourceFiles();
         }
@@ -106,7 +108,7 @@ namespace Citta_T1.Business.Model
              * 不是处理过的路径，文件拷贝
              */
             XmlNodeList pythonNodes = rootNode.SelectNodes("//ModelElement[subtype='PythonOperator']");
-            if(!CopyPythonOperatorFiles(pythonNodes, allPaths, dataSourceNames)) 
+            if (!CopyPythonOperatorFiles(pythonNodes, allPaths, dataSourceNames))
                 return !copySuccess;
 
             // Python、AI、多源算子连接的结果算子路径赋值
@@ -133,12 +135,12 @@ namespace Citta_T1.Business.Model
 
                 // 相同数据源，直接使用已经命名好的数据源
                 if (allPaths.ContainsKey(path))
-                {                   
+                {
                     xmlNode.SelectSingleNode("option/path").InnerText = allPaths[path];
                     continue;
                 }
 
-                if (!CopyFileTo_dataFolder(xmlNode, path, dataSourceNames,"option/path"))
+                if (!CopyFileTo_dataFolder(xmlNode, path, dataSourceNames, "option/path"))
                     return !copySuccess;
 
                 allPaths[path] = xmlNode.SelectSingleNode("option/path").InnerText;
@@ -148,7 +150,7 @@ namespace Citta_T1.Business.Model
         private bool CopyPythonOperatorFiles(XmlNodeList pythonNodes, Dictionary<string, string> allPaths, List<string> dataSourceNames)
         {
             bool copySuccess = true;
-            Regex reg0 = new Regex(@"^(?<fpath>([a-zA-Z]:\\)([\s\.\-\w]+\\)*)(?<fname>[\w]+.[\w]+)");
+            Regex reg0 = new Regex(Global.regPath);
             foreach (XmlNode pythonNode in pythonNodes)
             {
                 XmlNode optionNode = pythonNode.SelectSingleNode("option");
@@ -174,7 +176,7 @@ namespace Citta_T1.Business.Model
                 {
                     bool factor0 = reg0.IsMatch(item);
                     bool factor1 = !item.ToLower().Contains("python.exe");
-                    bool factor2 = string.IsNullOrEmpty(outputParamPath) || !string.IsNullOrEmpty(outputParamPath) && !item.Contains(outputParamPath);
+                    bool factor2 = string.IsNullOrEmpty(outputParamPath) || !item.Contains(outputParamPath);
                     if (factor0 && factor1 && factor2)
                         paths.Add(item);
                 }
@@ -183,7 +185,7 @@ namespace Citta_T1.Business.Model
                     if (allPaths.ContainsKey(path))
                     {
                         // 相同数据源，直接使用已经命名好的数据源
-                        optionNode.SelectSingleNode("cmd").InnerText=optionNode.SelectSingleNode("cmd").InnerText.Replace(path, allPaths[path]);
+                        cmdNode.InnerText = cmdNode.InnerText.Replace(path, allPaths[path]);
                         continue;
                     }
                     // 拷贝文件到_data目录
@@ -234,14 +236,14 @@ namespace Citta_T1.Business.Model
                 pyParam.InnerText = pyParam.InnerText.Replace(path, newPath);
             }
         }
-  
+
         private bool CopyFileTo_dataFolder(XmlNode xmlNode, String path, List<string> dataSourceNames, string nodeName = "path")
         {
             bool copySuccess = true;
             string pathName = Path.GetFileName(path);
 
             // 导出模型文档再次导出
-            if (string.Equals(path, Path.Combine(this.dataPath, pathName))||string.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path) || string.Equals(path, Path.Combine(this.dataPath, pathName)))
                 return copySuccess;
             if (!File.Exists(path))
             {
@@ -254,7 +256,7 @@ namespace Citta_T1.Business.Model
             {
                 pathName = GetNewName(pathName, dataSourceNames);
                 string newPath = Path.Combine(Path.GetDirectoryName(path), pathName);
-                xmlNode.SelectSingleNode(nodeName).InnerText=xmlNode.SelectSingleNode(nodeName).InnerText.Replace(path, newPath);                
+                xmlNode.SelectSingleNode(nodeName).InnerText = xmlNode.SelectSingleNode(nodeName).InnerText.Replace(path, newPath);
             }
             File.Copy(path, Path.Combine(this.dataPath, pathName), true);
             dataSourceNames.Add(pathName);
