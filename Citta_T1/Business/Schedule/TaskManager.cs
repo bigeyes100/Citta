@@ -190,52 +190,65 @@ namespace Citta_T1.Business.Schedule
 
         public void Stop()
         {
-            //终止，当前模型状态置stop，op状态由suspend和running到stop，所有task资源释放并关闭，process关闭，后台运算thread关闭
-            this.modelStatus = ModelStatus.Stop;
-            ChangeStatus(ElementStatus.Suspend, ElementStatus.Stop);
-            ChangeStatus(ElementStatus.Runnnig, ElementStatus.Stop);
-            resetEvent.Dispose();
-
-            lock (_objLock)
+            try
             {
-                // 我们自己的进程需要忽略掉 Ctrl+C 信号，否则自己也会退出。
-                SetConsoleCtrlHandler(null, true);
+                //终止，当前模型状态置stop，op状态由suspend和running到stop，所有task资源释放并关闭，process关闭，后台运算thread关闭
+                this.modelStatus = ModelStatus.Stop;
+                ChangeStatus(ElementStatus.Suspend, ElementStatus.Stop);
+                ChangeStatus(ElementStatus.Runnnig, ElementStatus.Stop);
+                resetEvent.Dispose();
 
-                foreach (Process p in cmdProcessList)
+                lock (_objLock)
                 {
-                    UpdateLogDelegate("关闭进程" + p.Id + "  " + p.ProcessName);
+                    // 我们自己的进程需要忽略掉 Ctrl+C 信号，否则自己也会退出。
+                    SetConsoleCtrlHandler(null, true);
 
-                    if (AttachConsole((uint)p.Id))
+                    foreach (Process p in cmdProcessList)
                     {
-                        // 将 Ctrl+C 信号发送到前面已关联（附加）的控制台进程中。
-                        GenerateConsoleCtrlEvent(CtrlTypes.CTRL_C_EVENT, 0);
+                        if (p != null)
+                        {
+                            UpdateLogDelegate("关闭进程" + p.Id + "  " + p.ProcessName);
 
-                        // 拾前面已经附加的控制台。
-                        FreeConsole();
+                            if (AttachConsole((uint)p.Id))
+                            {
+                                // 将 Ctrl+C 信号发送到前面已关联（附加）的控制台进程中。
+                                GenerateConsoleCtrlEvent(CtrlTypes.CTRL_C_EVENT, 0);
 
-                        // 如果没有超时处理，则一直等待，直到最终进程停止。
-                        p.WaitForExit(2000);
+                                // 拾前面已经附加的控制台。
+                                FreeConsole();
 
+                                // 如果没有超时处理，则一直等待，直到最终进程停止。
+                                p.WaitForExit(2000);
+
+                            }
+                            else
+                            {
+                                p.Kill();
+                            }
+                            p.Close();
+                            p.Dispose();
+                            
+                        }
                     }
-                    else
-                    {
-                        p.Kill();
-                    }
-                    p.Dispose();
-                    p.Close();
+                    // 重新恢复我们自己的进程对 Ctrl+C 信号的响应。
+                    SetConsoleCtrlHandler(null, false);
 
+                    //cmdProcessList.ForEach(p => {p.Kill();  p.Close(); p.Dispose(); });
                 }
-                // 重新恢复我们自己的进程对 Ctrl+C 信号的响应。
-                SetConsoleCtrlHandler(null, false);
-                //cmdProcessList.ForEach(p => { p.Kill(); p.Dispose(); p.Close(); });
             }
-
-            foreach (Task currentTask in parallelTasks)
+            catch(Exception ex)
             {
-                if (currentTask != null && currentTask.Status == TaskStatus.Running)//终止task线程
-                    tokenSource.Cancel();
+                UpdateLogDelegate("终止异常:" + ex.Message);
             }
-            CloseThread();
+            finally
+            {
+                foreach (Task currentTask in parallelTasks)
+                {
+                    if (currentTask != null && currentTask.Status == TaskStatus.Running)//终止task线程
+                        tokenSource.Cancel();
+                }
+                CloseThread();
+            }
         }
 
         public void CloseThread()
@@ -467,6 +480,7 @@ namespace Citta_T1.Business.Schedule
                     p.StandardInput.WriteLine("exit");
                     p.WaitForExit(); //等待进程结束，等待时间为指定的毫秒
 
+                    //UpdateLogDelegate("退出码"+p.ExitCode.ToString());
                     if (p.ExitCode != 0)
                     {
                         errorMessage = "执行程序非正常退出，请检查程序后再运行。";
@@ -489,8 +503,11 @@ namespace Citta_T1.Business.Schedule
             finally
             {
                 if (p != null)
-                    p.Dispose();//释放资源
+                {
                     p.Close();
+                    p.Dispose();//释放资源 
+                }
+
                 lock (_objLock)
                 {
                     this.cmdProcessList.Remove(p);

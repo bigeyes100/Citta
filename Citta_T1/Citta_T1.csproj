@@ -113,9 +113,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ThirdPartyLibrary\NPOI.2.5.1\lib\net45\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
-    <Reference Include="PInvoke.Kernel32">
-      <HintPath>..\ThirdPartyLibrary\pinvoke.kernel32\0.7.78\lib\net45\PInvoke.Kernel32.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
