@@ -9,7 +9,7 @@ namespace Citta_T1.Dialogs
     public partial class LoginForm : Form
     {
         private List<string> users;
-        private MainForm mainForm;
+        
         public LoginForm()
         {
             InitializeComponent();
@@ -42,19 +42,20 @@ namespace Citta_T1.Dialogs
                 this.userNameComboBox.Text = String.Empty;
                 return;
             }
+            updateUserInfo(userName);
+            Core.Global.Username = userName;
+            this.DialogResult = DialogResult.OK;
+            this.Close();
 
+        }
+        //逻辑看不懂 不会优化
+        public void updateUserInfo(string userName)
+        {
             LoginInfo lgInfo = new LoginInfo();
             lgInfo.CreatNewXml();
             if (this.loginCheckBox.Checked && !users.Contains(userName))
                 lgInfo.WriteUserInfo(userName);
             lgInfo.WriteLastLogin(userName);
-            this.Hide();
-
-            mainForm = new MainForm(userName);
-            mainForm.ShowDialog();
-
-            this.Close();
-
         }
       
 

@@ -9,7 +9,7 @@ namespace Citta_T1.Utils
     class ConfigUtil
     {
         public static string DefaultWorkspaceDirectory = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "/FiberHomeIAOModelDocument";
-        public static string DefaultVersionType = "NonGreen";
+        public static string DefaultVersionType = "NonPortableSoftware";
         public static string TryGetAppSettingsByKey(string key, string defaultValue = "")
         {
             string value;
