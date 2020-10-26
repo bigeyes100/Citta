@@ -52,7 +52,7 @@ namespace Citta_T1.Business.Model
             if (HasUnZipIaoFile(fullFilePath, userName))
             {
                 // 脚本、数据源存储路径
-                string dirs = Path.Combine(this.modelDir, "_data");
+                string dirs = Path.Combine(this.modelDir, "_datas");
                 // 修改XML文件中数据源路径
                 RenameFile(dirs, this.modelFilePath);
                 // 将导入模型添加到左侧模型面板

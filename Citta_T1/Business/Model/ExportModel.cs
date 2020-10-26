@@ -76,7 +76,7 @@ namespace Citta_T1.Business.Model
             foreach (string file in filePaths)
                 File.Copy(file, Path.Combine(newModelPath, Path.GetFileName(file)), true);
             // 创建存储数据的_data文件夹
-            this.dataPath = Path.Combine(newModelPath, "_data");
+            this.dataPath = Path.Combine(newModelPath, "_datas");
             Directory.CreateDirectory(dataPath);
             return CopyDataSourceFiles();
         }
@@ -91,7 +91,7 @@ namespace Citta_T1.Business.Model
             XmlNode rootNode = xDoc.SelectSingleNode("ModelDocument");
             // 数据源
             XmlNodeList nodes = rootNode.SelectNodes("//ModelElement[type='DataSource']");
-            // dataSourceNames存放拷贝到_data目录中的文件名称
+            // dataSourceNames存放拷贝到_datas目录中的文件名称
             if (!CopyDataSourceOperatorFile(nodes, allPaths, dataSourceNames))
                 return !copySuccess;
 
@@ -188,7 +188,7 @@ namespace Citta_T1.Business.Model
                         cmdNode.InnerText = cmdNode.InnerText.Replace(path, allPaths[path]);
                         continue;
                     }
-                    // 拷贝文件到_data目录
+                    // 拷贝文件到_datas目录
                     if (!CopyFileTo_dataFolder(optionNode, path, dataSourceNames, "cmd"))
                         return !copySuccess;
                     // 修改cmd中路径的文件名
@@ -251,7 +251,7 @@ namespace Citta_T1.Business.Model
                 return !copySuccess;
             }
 
-            // _data中包含同名文件，新添加的文件要重命名并修改Xml对应路径中文件名
+            // _datas中包含同名文件，新添加的文件要重命名并修改Xml对应路径中文件名
             if (dataSourceNames.Contains(pathName))
             {
                 pathName = GetNewName(pathName, dataSourceNames);
