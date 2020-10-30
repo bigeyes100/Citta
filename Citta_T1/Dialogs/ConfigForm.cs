@@ -28,6 +28,7 @@ namespace Citta_T1.Dialogs
 
         private void UserModelOkButton_Click(object sender, EventArgs e)
         {
+            SavePythonConfig();
             Close();
         }
 
@@ -38,6 +39,7 @@ namespace Citta_T1.Dialogs
 
         private void AboutOkButton_Click(object sender, EventArgs e)
         {
+            SavePythonConfig();
             Close();
         }
 
