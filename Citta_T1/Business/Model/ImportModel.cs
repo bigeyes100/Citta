@@ -1,6 +1,7 @@
 ﻿using Citta_T1.Controls.Left;
 using Citta_T1.Controls.Title;
 using Citta_T1.Core;
+using Citta_T1.Utils;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Collections.Generic;
 using System.IO;
@@ -63,6 +64,7 @@ namespace Citta_T1.Business.Model
         }
         private string modelFilePath;
         private string modelDir;
+
         private bool HasUnZipIaoFile(string zipFilePath, string userName)
         {
             /*
@@ -110,9 +112,18 @@ namespace Citta_T1.Business.Model
                 MessageBox.Show("模型文件:" + modelName + "已打开，请关闭该文档并重新进行导入", "关闭模型文档");
                 return !hasUnZip;
             }
-            // 删除原始模型文件、解压新文件                    
-            if (Directory.Exists(modelPath))
-                Directory.Delete(modelPath, true);
+            // 删除原始模型文件                   
+            try
+            {
+                if (Directory.Exists(modelPath))
+                    Directory.Delete(modelPath, true);
+            }
+            catch (IOException e)
+            {
+                MessageBox.Show("模型导入出错: " + e.Message);
+                return !hasUnZip;
+            }
+            // 解压新文件   
             Utils.ZipUtil.UnZipFile(zipFilePath);
             return hasUnZip;
 
