@@ -92,7 +92,7 @@ namespace Citta_T1.Controls.Left
                 return;
 
             string modelDic = System.IO.Path.Combine(Global.GetCurrentDocument().UserPath, ModelTitle);
-            FileUtil.DeleteDirectory(modelDic);
+            FileUtil.UnsafeDeleteDirectory(modelDic);
             Global.GetMyModelControl().RemoveModelButton(this);
         }
 

@@ -51,6 +51,7 @@ namespace Citta_T1.Business.Model
             saveFileDialog1.AddExtension = true;
             saveFileDialog1.Filter = "模型文件(*.iao)|*.iao"; //文件类型
             saveFileDialog1.Title = "导出模型";//标题
+            saveFileDialog1.FileName = Path.GetFileNameWithoutExtension(FullXmlFilePath);
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 string fileName = saveFileDialog1.FileName;

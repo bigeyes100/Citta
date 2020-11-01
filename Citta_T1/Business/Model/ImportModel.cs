@@ -77,7 +77,7 @@ namespace Citta_T1.Business.Model
             string modelPath = string.Empty;
             DialogResult result;
             using (ZipInputStream s = new ZipInputStream(File.OpenRead(zipFilePath)))
-            {
+            {   
                 ZipEntry theEntry;
                 while ((theEntry = s.GetNextEntry()) != null)
                 {

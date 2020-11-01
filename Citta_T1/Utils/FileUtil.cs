@@ -88,7 +88,7 @@ namespace Citta_T1.Utils
             catch { }; // 非核心功能, Double异常就不用管了
         }
 
-        public static void DeleteDirectory(string directoryPath)
+        public static bool UnsafeDeleteDirectory(string directoryPath)
         {
             try
             {
@@ -96,8 +96,11 @@ namespace Citta_T1.Utils
             }
             catch
             {
-                // 如果无法回滚的话,这个地方只能直接忽略了
+                // 删除失败时既然不知道原因，也无法回滚，那干脆直接忽略
+                // 否则不捕获异常会引起程序崩
+                return false;
             }
+            return true;
         }
 
         public static bool CreateDirectory(string dicectoryPath)
