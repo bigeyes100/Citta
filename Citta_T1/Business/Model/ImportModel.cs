@@ -73,26 +73,29 @@ namespace Citta_T1.Business.Model
              */
             bool hasUnZip = true;
             string fileName = string.Empty;
-            string modelName = string.Empty;
-            string modelPath = string.Empty;
             DialogResult result;
-            using (ZipInputStream s = new ZipInputStream(File.OpenRead(zipFilePath)))
-            {   
+            try
+            {
+                ZipInputStream s = new ZipInputStream(File.OpenRead(zipFilePath));
                 ZipEntry theEntry;
                 while ((theEntry = s.GetNextEntry()) != null)
                 {
                     if (!Path.GetFileName(theEntry.Name).EndsWith(".xml"))
                         continue;
                     fileName = Path.GetFileName(theEntry.Name);
-                    modelName = Path.GetFileNameWithoutExtension(theEntry.Name);
-                    modelPath = Path.Combine(Global.WorkspaceDirectory, userName, modelName);
                     break;
                 }
-            }
+                s.Close();
 
-            // 未找到xml文件
+            }
+            catch
+            {
+                MessageBox.Show("文件内容已破损:" + zipFilePath);
+                return !hasUnZip;
+            }
             if (string.IsNullOrEmpty(fileName))
                 return !hasUnZip;
+            string modelName = fileName.TrimEnd(".xml".ToCharArray());
             this.modelDir = Path.Combine(Global.WorkspaceDirectory, userName, modelName);
             this.modelFilePath = Path.Combine(this.modelDir, fileName);
             // 是否包含同名模型文档
@@ -115,8 +118,8 @@ namespace Citta_T1.Business.Model
             // 删除原始模型文件                   
             try
             {
-                if (Directory.Exists(modelPath))
-                    Directory.Delete(modelPath, true);
+                if (Directory.Exists(this.modelDir))
+                    Directory.Delete(this.modelDir, true);
             }
             catch (IOException e)
             {
