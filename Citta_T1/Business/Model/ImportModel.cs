@@ -1,12 +1,7 @@
-﻿using Citta_T1.Controls.Left;
-using Citta_T1.Controls.Title;
-using Citta_T1.Core;
-using Citta_T1.Utils;
+﻿using Citta_T1.Core;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
@@ -74,9 +69,10 @@ namespace Citta_T1.Business.Model
             bool hasUnZip = true;
             string fileName = string.Empty;
             DialogResult result;
+            ZipInputStream s = null;
             try
             {
-                ZipInputStream s = new ZipInputStream(File.OpenRead(zipFilePath));
+                s = new ZipInputStream(File.OpenRead(zipFilePath));
                 ZipEntry theEntry;
                 while ((theEntry = s.GetNextEntry()) != null)
                 {
@@ -85,14 +81,17 @@ namespace Citta_T1.Business.Model
                     fileName = Path.GetFileName(theEntry.Name);
                     break;
                 }
-                s.Close();
-
             }
             catch
             {
                 MessageBox.Show("文件内容已破损:" + zipFilePath);
                 return !hasUnZip;
             }
+            finally {
+                if (s != null)
+                    s.Close();
+            }
+
             if (string.IsNullOrEmpty(fileName))
                 return !hasUnZip;
             string modelName = fileName.TrimEnd(".xml".ToCharArray());
