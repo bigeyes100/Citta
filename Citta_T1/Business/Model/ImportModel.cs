@@ -114,7 +114,17 @@ namespace Citta_T1.Business.Model
                 MessageBox.Show("模型文件:" + modelName + "已打开，请关闭该文档并重新进行导入", "关闭模型文档");
                 return !hasUnZip;
             }
-            // 删除原始模型文件                   
+            //判断文件是否被占用  
+            var files = Directory.GetFiles(this.modelDir);
+            foreach (var file in files)
+            {
+                if (IsFileInUse(file))
+                {
+                    MessageBox.Show(file + ":文件正在被占用,无法导入模型.");
+                    return !hasUnZip;
+                }
+            }
+            // 删除原始模型文件
             try
             {
                 if (Directory.Exists(this.modelDir))
@@ -130,7 +140,29 @@ namespace Citta_T1.Business.Model
             return hasUnZip;
 
         }
+        public static bool IsFileInUse(string filePath)
+        {
+            //true表示文件被占用,false没有被占用
+            bool inUse = true;
+            FileStream fs = null;
+            try
+            {
 
+                fs = new FileStream(filePath, FileMode.Open, FileAccess.Read,FileShare.None);
+                inUse = false;
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                if (fs != null)
+
+                    fs.Close();
+            }
+            return inUse;
+        }
         private void RenameFile(string dirs, string newModelFilePath)
         {
             Dictionary<string, string> dataSourcePath = new Dictionary<string, string>();
