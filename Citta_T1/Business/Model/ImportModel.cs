@@ -1,5 +1,6 @@
 ﻿using Citta_T1.Core;
 using ICSharpCode.SharpZipLib.Zip;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -114,31 +115,46 @@ namespace Citta_T1.Business.Model
                 MessageBox.Show("模型文件:" + modelName + "已打开，请关闭该文档并重新进行导入", "关闭模型文档");
                 return !hasUnZip;
             }
+            // 删除原始模型文件
+            if (!IsDeletePathReady())
+                return !hasUnZip;
+            // 解压新文件   
+            Utils.ZipUtil.UnZipFile(zipFilePath);
+            return hasUnZip;
+
+        }
+        private bool IsDeletePathReady()
+        {
+            bool ready = true;
             //判断文件是否被占用  
-            var files = Directory.GetFiles(this.modelDir);
+            var files = Directory.GetFiles(this.modelDir, "*", SearchOption.AllDirectories);
             foreach (var file in files)
             {
                 if (IsFileInUse(file))
                 {
                     MessageBox.Show(file + ":文件正在被占用,无法导入模型.");
-                    return !hasUnZip;
+                    return !ready;
                 }
             }
-            // 删除原始模型文件
-            try
+            // 删除子目录及文件
+            string[] paths = (string[]) Directory.GetDirectories(this.modelDir).Clone();
+            string[] allPath = new string[paths.Length + 1];
+            Array.Copy(paths, allPath, paths.Length);
+            allPath[paths.Length] = this.modelDir;
+            foreach (string path in allPath)
             {
-                if (Directory.Exists(this.modelDir))
-                    Directory.Delete(this.modelDir, true);
+                try
+                {
+                    if (Directory.Exists(path))
+                        Directory.Delete(path, true);
+                }
+                catch (IOException e)
+                {
+                    MessageBox.Show("模型导入出错: " + e.Message);
+                    return !ready;
+                }
             }
-            catch (IOException e)
-            {
-                MessageBox.Show("模型导入出错: " + e.Message);
-                return !hasUnZip;
-            }
-            // 解压新文件   
-            Utils.ZipUtil.UnZipFile(zipFilePath);
-            return hasUnZip;
-
+            return ready;
         }
         public static bool IsFileInUse(string filePath)
         {
