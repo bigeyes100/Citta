@@ -126,59 +126,25 @@ namespace Citta_T1.Business.Model
         private bool IsDeletePathReady()
         {
             bool ready = true;
-            //判断文件是否被占用  
-            var files = Directory.GetFiles(this.modelDir, "*", SearchOption.AllDirectories);
-            foreach (var file in files)
-            {
-                if (IsFileInUse(file))
-                {
-                    MessageBox.Show(file + ":文件正在被占用,无法导入模型.");
-                    return !ready;
-                }
-            }
+
             // 删除子目录及文件
-            string[] paths = (string[]) Directory.GetDirectories(this.modelDir).Clone();
-            string[] allPath = new string[paths.Length + 1];
-            Array.Copy(paths, allPath, paths.Length);
-            allPath[paths.Length] = this.modelDir;
-            foreach (string path in allPath)
+            try
             {
-                try
-                {
-                    if (Directory.Exists(path))
-                        Directory.Delete(path, true);
-                }
-                catch (IOException e)
+                if (Directory.Exists(this.modelDir))
+                    Directory.Delete(this.modelDir, true);
+            }
+            catch (IOException e)
+            {
+                if (!Utils.FileUtil.UnsafeDeleteDirectory(this.modelDir))
                 {
                     MessageBox.Show("模型导入出错: " + e.Message);
                     return !ready;
-                }
+                }    
+                return ready;
             }
             return ready;
         }
-        public static bool IsFileInUse(string filePath)
-        {
-            //true表示文件被占用,false没有被占用
-            bool inUse = true;
-            FileStream fs = null;
-            try
-            {
-
-                fs = new FileStream(filePath, FileMode.Open, FileAccess.Read,FileShare.None);
-                inUse = false;
-            }
-            catch
-            {
-
-            }
-            finally
-            {
-                if (fs != null)
-
-                    fs.Close();
-            }
-            return inUse;
-        }
+       
         private void RenameFile(string dirs, string newModelFilePath)
         {
             Dictionary<string, string> dataSourcePath = new Dictionary<string, string>();
