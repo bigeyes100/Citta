@@ -741,7 +741,6 @@
     <Content Include="Doc\Citta项目 C#编码风格规范.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Doc\test.txt" />
     <Content Include="Icon.ico" />
     <Content Include="res\datasource\pythonHelper1.png" />
     <Content Include="res\datasource\pythonHelper2.png" />
