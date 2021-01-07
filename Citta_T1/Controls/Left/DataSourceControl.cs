@@ -21,10 +21,9 @@ namespace Citta_T1.Controls.Left
            
         }
 
-        private static readonly int ButtonGapHeight = 50;
         private static readonly int ButtonLeftX = 17;
-        private static readonly int ButtonBottomOffsetY = 40;
-        private Point startPoint = new Point(ButtonLeftX, -ButtonBottomOffsetY);
+        private static readonly int ButtonBottomOffsetY = 12;
+        private Point startPoint = new Point(ButtonLeftX, -20);
 
         private Dictionary<string, DataButton> dataSourceDictI2B;
 
@@ -62,7 +61,7 @@ namespace Citta_T1.Controls.Left
             if (this.localFrame.Controls.Count > 0)
                 startPoint = this.localFrame.Controls[this.localFrame.Controls.Count - 1].Location;
 
-            startPoint.Y += ButtonGapHeight;
+            startPoint.Y += ct.Height + ButtonBottomOffsetY;
             ct.Location = startPoint;
         }
         // 程序启动加载时调用
@@ -115,7 +114,7 @@ namespace Citta_T1.Controls.Left
         {
             // panel左上角坐标随着滑动条改变而改变，以下就是将panel左上角坐标校验
             if (this.localFrame.Controls.Count > 0)
-                this.startPoint.Y = this.localFrame.Controls[0].Location.Y - ButtonGapHeight;
+                this.startPoint.Y = this.localFrame.Controls[0].Location.Y - ButtonBottomOffsetY - this.localFrame.Controls[0].Height;
 
             this.DataSourceDictI2B.Remove(dataButton.FullFilePath);
             this.localFrame.Controls.Remove(dataButton);
