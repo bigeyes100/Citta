@@ -60,7 +60,8 @@ namespace Citta_T1.Controls.Left
             
             if (this.localFrame.Controls.Count > 0)
                 startPoint = this.localFrame.Controls[this.localFrame.Controls.Count - 1].Location;
-
+            else
+                startPoint = new Point(ButtonLeftX, -20);
             startPoint.Y += ct.Height + ButtonBottomOffsetY;
             ct.Location = startPoint;
         }
@@ -93,29 +94,33 @@ namespace Citta_T1.Controls.Left
         private void ReLayoutLocalFrame()
         {
             // 先暂停布局,然后调整button位置,最后恢复布局,可以避免闪烁
-            this.localFrame.SuspendLayout();
+          
             List<Control> tmp = new List<Control>();
             foreach (DataButton ct in this.localFrame.Controls)
                 tmp.Add(ct);
-
+            if (tmp.Count <= 0)
+                return;
             this.localFrame.Controls.Clear();
+
             // 重新排序
+
+            LayoutModelButtonLocation(tmp[0] as DataButton);
+            this.localFrame.Controls.Add(tmp[0]);
+
+            tmp.Remove(tmp[0]);
+            this.localFrame.SuspendLayout();
             foreach (Control ct in tmp)
             {
                 LayoutModelButtonLocation(ct as DataButton);
                 this.localFrame.Controls.Add(ct);
             }
-
             this.localFrame.ResumeLayout(false);
             this.localFrame.PerformLayout();
         }
 
         public void RemoveDataButton(DataButton dataButton)
         {
-            // panel左上角坐标随着滑动条改变而改变，以下就是将panel左上角坐标校验
-            if (this.localFrame.Controls.Count > 0)
-                this.startPoint.Y = this.localFrame.Controls[0].Location.Y - ButtonBottomOffsetY - this.localFrame.Controls[0].Height;
-
+           
             this.DataSourceDictI2B.Remove(dataButton.FullFilePath);
             this.localFrame.Controls.Remove(dataButton);
             // 重新布局
