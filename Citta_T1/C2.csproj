@@ -169,6 +169,18 @@
     <Compile Include="ChartControls\MindMap\MindMapView\MindMapView.Schedule.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ChartControls\TableChart\Renders\ITableRender.cs" />
+    <Compile Include="ChartControls\TableChart\TableChartView\TableChartView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ChartControls\TableChart\TableChartView\TableChartView.Mouse.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ChartControls\TableChart\Renders\TableRenderArgs.cs" />
+    <Compile Include="ChartControls\TableChart\Renders\TableRender.cs" />
+    <Compile Include="ChartControls\TableChart\TableChartView\TableChartView.Paint.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\C1\Left\IAOButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -198,6 +210,9 @@
     </Compile>
     <Compile Include="Controls\C1\Left\IAOLabControl.Designer.cs">
       <DependentUpon>IAOLabControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChartControls\TableChart\TableChart.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\DataCharts\BarChart.cs">
       <SubType>UserControl</SubType>
@@ -2735,12 +2750,12 @@
   <ItemGroup>
     <PublishFile Include="sbin\true.exe">
       <Visible>False</Visible>
+      <PublishState>DataFile</PublishState>
+      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
-      <PublishState>DataFile</PublishState>
-      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>

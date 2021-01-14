@@ -1,4 +1,5 @@
 ﻿using C2.Business.DataSource;
+using C2.ChartControls.TableViews;
 using C2.Core;
 using C2.Database;
 using C2.Dialogs;
@@ -18,17 +19,13 @@ namespace C2.Controls.Left
         private InputDataForm inputDataForm;
         private static readonly int ButtonGapHeight = 50;//上下间隔
         private static readonly int ButtonLeftX = 18;
+        private TableChartView tableChartView;
 
         private Point startPoint;
         private Point linkPoint;
         private Point tablePoint;
         private Dictionary<string, List<string>> relateTableCol;
 
-        // 这个控件属性不需要在属性面板显示和序列化,不加这个标签,在引用这个控件的Designer中,会序列化它
-        // 然后就是各种奇葩问题
-        // DesignerSerializationVisibility.Hidden  设计器不为这个属性生成代码
-        // Browsable(false) 这个属性不出现在设计器的属性窗口中
-        // MergableProperty(false) 不知道是干嘛的, 看网上帖子就加进去了
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden), Browsable(false), MergableProperty(false)]
         public Dictionary<string, DataButton> DataSourceDictI2B { get; }
         public Dictionary<string, LinkButton> LinkSourceDictI2B { get; }
@@ -75,6 +72,20 @@ namespace C2.Controls.Left
             linkPoint = new Point(ButtonLeftX - 11, -ButtonGapHeight);
             tablePoint = new Point(ButtonLeftX, -ButtonGapHeight);
             _RelateTableButtons = new List<TableButton>();
+
+            tableChartView = new TableChartView();
+            // mindMapView1
+            tableChartView.Dock = DockStyle.Fill;
+            tableChartView.Name = "tableChartView";
+            tableChartView.ShowBorder = true;
+            tableChartView.TablesChanged += UpdateTableChartView;
+
+            this.tabelPanel.Controls.Add(tableChartView);
+        }
+
+        private void UpdateTableChartView(object sender, EventArgs e)
+        {
+            (sender as TableChartView).UpdateView(ChangeTypes.All);
         }
 
         #region 内外部数据面板切换
@@ -493,7 +504,7 @@ namespace C2.Controls.Left
             //{
             //    RelateTableButtons.Add(tb);
             //}
-
+            tableChartView.Tables = tables;
 
                 
         }

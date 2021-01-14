@@ -25,13 +25,7 @@ namespace C2.ChartControls.TableViews
             {
                 ptTran.Y = (int)Math.Ceiling((viewPort.Height - size.Height) / 2);
             }
-            e.Graphics.FillEllipse(Brushes.Red, new Rectangle(new Point((int)(-3), (int)(-3)), new Size((int)(10m), (int)(10))));
-            Rectangle contentRect = new Rectangle(Point.Empty, new Size((int)(size.Width), (int)(size.Height)));
-            contentRect.Inflate(-3, -3);
-            e.Graphics.DrawRectangle(Pens.Blue, contentRect);
-            Rectangle viewPortRect = new Rectangle(new Point((int)(viewPort.Location.X), (int)(viewPort.Location.Y)), new Size((int)(viewPort.Width), (int)(viewPort.Height)));
-            viewPortRect.Inflate(-4, -4);
-            e.Graphics.DrawRectangle(Pens.Green, viewPortRect);
+
             if (!ptTran.IsEmpty)
             {
                 e.Graphics.TranslateTransform(ptTran.X, ptTran.Y);
@@ -44,14 +38,6 @@ namespace C2.ChartControls.TableViews
 
             if (Render != null && Tables != null)
             {
-                e.Graphics.FillEllipse(Brushes.Black, new Rectangle(new Point((int)(-3), (int)(-3)), new Size((int)(10), (int)(10))));
-                contentRect = new Rectangle(Point.Empty, new Size((int)(size.Width), (int)(size.Height)));
-                contentRect.Inflate(-5, -5);
-                e.Graphics.DrawRectangle(Pens.Black, contentRect);
-                viewPortRect = new Rectangle(new Point((int)(viewPort.Location.X), (int)(viewPort.Location.Y)), new Size((int)(viewPort.Width), (int)(viewPort.Height)));
-                viewPortRect.Inflate(-6, -6);
-                e.Graphics.DrawRectangle(Pens.Red, viewPortRect);
-
                 TableRenderArgs args = new TableRenderArgs(Tables, e.Graphics, Font);
                 Render.Paint(args);
             }

@@ -16,7 +16,6 @@ namespace C2.Controls
     public abstract class TableChart : ScrollableControlBase
     {
         private ChartBox _ChartBox;
-        private List<Table> _Tables;
         public TableChart()
         {
             ChartBox = CreateChartBox();
@@ -32,19 +31,16 @@ namespace C2.Controls
             ChartBox.KeyUp += new KeyEventHandler(ChartBox_KeyUp);
             ChartBox.KeyPress += new KeyPressEventHandler(ChartBox_KeyPress);
             ChartBox.DragDrop += new DragEventHandler(ChartBox_DragDrop);
+            ChartBox.Resize += new EventHandler(ChartBox_Resize);
             Controls.Add(ChartBox);
 
             SetPaintStyles();
-            Render = new TableRender();
         }
         #region property
         Color _ChartBackColor = Color.White;
         Color _ChartForeColor = Color.Black;
         Point _TranslatePoint;
-        bool _HighQualityRender = true;
 
-        public event EventHandler TablesChanged;
-        public ITableRender Render { get; private set; }
         protected Rectangle ViewPort
         {
             get
@@ -105,18 +101,7 @@ namespace C2.Controls
                 }
             }
         }
-        public List<Table> Tables
-        {
-            get { return _Tables; }
-            set
-            {
-                if (_Tables != value)
-                {
-                    _Tables = value;
-                    OnTablesChanged();
-                }
-            }
-        }
+
         #endregion
         #region 事件
         private void ChartBox_DragDrop(object sender, DragEventArgs e)
@@ -162,6 +147,11 @@ namespace C2.Controls
         private void ChartBox_MouseDown(object sender, MouseEventArgs e)
         {
             throw new NotImplementedException();
+        }
+        void ChartBox_Resize(object sender, EventArgs e)
+        {
+            if (CustomDoubleBuffer)
+                UpdateView(ChangeTypes.ViewPort | ChangeTypes.Visual);
         }
         #endregion
         #region scroll value
@@ -268,7 +258,7 @@ namespace C2.Controls
             return gs;
         }
 
-        protected virtual void ChartBox_Paint(object sender, PaintEventArgs e)
+        private void ChartBox_Paint(object sender, PaintEventArgs e)
         {
             Point pt = Point.Empty;
             if (HorizontalScroll.Enabled)
@@ -351,7 +341,7 @@ namespace C2.Controls
             {
                 InvalidateChart();
             }
-
+            ResetControlBounds();
             base.UpdateView(ut);
         }
         #endregion
@@ -360,11 +350,13 @@ namespace C2.Controls
         {
             return new ChartBox();
         }
-
-        private void OnTablesChanged()
+        protected override void ResetControlBounds()
         {
-            TablesChanged?.Invoke(this, EventArgs.Empty);
+            base.ResetControlBounds();
+
+            ChartBox.Bounds = DisplayRectangle;
         }
+
         #endregion
     }
 
