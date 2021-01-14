@@ -473,26 +473,27 @@ namespace C2.Controls.Left
             this.tabelPanel.Controls.Clear();
             OraConnection conn = new OraConnection(databaseInfo);
             relateTableCol = DbUtil.GetTableCol( conn ,tables);
-            tablePoint = new Point(ButtonLeftX, -ButtonGapHeight);
-            List<string> tmp = new List<string>();
-            foreach (Table table in tables.Take(Math.Min(300,tables.Count)))
-            {
-                foreach ( List<string> kvp in relateTableCol.Values)
-                {
-                    tmp.AddRange(kvp);
-                }
-                table.Columns = tmp;
-                DatabaseItem tmpDatabaseItem = databaseInfo.Clone();
-                tmpDatabaseItem.DataTable = table;
-                tmpDatabaseItem.Group = this.schemaComboBox.Text;
-                TableButton tableButton = new TableButton(tmpDatabaseItem);
-                GenTableButton(tableButton);//生成数据表按钮
-            }
+            //tablePoint = new Point(ButtonLeftX, -ButtonGapHeight);
+            //List<string> tmp = new List<string>();
+            //foreach (Table table in tables.Take(Math.Min(300,tables.Count)))
+            //{
+            //    foreach ( List<string> kvp in relateTableCol.Values)
+            //    {
+            //        tmp.AddRange(kvp);
+            //    }
+            //    table.Columns = tmp;
+            //    DatabaseItem tmpDatabaseItem = databaseInfo.Clone();
+            //    tmpDatabaseItem.DataTable = table;
+            //    tmpDatabaseItem.Group = this.schemaComboBox.Text;
+            //    TableButton tableButton = new TableButton(tmpDatabaseItem);
+            //    GenTableButton(tableButton);//生成数据表按钮
+            //}
 
-            foreach (TableButton tb in this.tabelPanel.Controls)
-            {
-                RelateTableButtons.Add(tb);
-            }
+            //foreach (TableButton tb in this.tabelPanel.Controls)
+            //{
+            //    RelateTableButtons.Add(tb);
+            //}
+
 
                 
         }

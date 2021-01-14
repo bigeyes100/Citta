@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace C2.ChartControls.TablePanel
+namespace C2.ChartControls.TableViews
 {
     class TableRender : ITableRender
     {

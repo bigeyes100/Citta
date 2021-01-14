@@ -38,7 +38,6 @@
             this.externalFrame = new System.Windows.Forms.Panel();
             this.optComboBox = new System.Windows.Forms.ComboBox();
             this.tableFilterTextBox = new System.Windows.Forms.TextBox();
-            this.tabelPanel = new System.Windows.Forms.Panel();
             this.schemaComboBox = new System.Windows.Forms.ComboBox();
             this.linkPanel = new System.Windows.Forms.Panel();
             this.dataTableLabel = new System.Windows.Forms.Label();
@@ -46,6 +45,7 @@
             this.linkLabel = new System.Windows.Forms.Label();
             this.dataAddLabelPanel = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.tabelPanel = new System.Windows.Forms.Panel();
             this.dataSourceFrame.SuspendLayout();
             this.externalFrame.SuspendLayout();
             this.dataAddLabelPanel.SuspendLayout();
@@ -174,17 +174,6 @@
             this.toolTip1.SetToolTip(this.tableFilterTextBox, "快速筛选:支持表名,列名,业务常用字段");
             this.tableFilterTextBox.TextChanged += new System.EventHandler(this.TableFilterTextBox_TextChanged);
             // 
-            // tabelPanel
-            // 
-            this.tabelPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabelPanel.AutoScroll = true;
-            this.tabelPanel.Location = new System.Drawing.Point(0, 324);
-            this.tabelPanel.Name = "tabelPanel";
-            this.tabelPanel.Size = new System.Drawing.Size(177, 296);
-            this.tabelPanel.TabIndex = 5;
-            // 
             // schemaComboBox
             // 
             this.schemaComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -248,6 +237,17 @@
             this.dataAddLabelPanel.Size = new System.Drawing.Size(179, 622);
             this.dataAddLabelPanel.TabIndex = 9;
             // 
+            // tabelPanel
+            // 
+            this.tabelPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabelPanel.AutoScroll = true;
+            this.tabelPanel.Location = new System.Drawing.Point(0, 324);
+            this.tabelPanel.Name = "tabelPanel";
+            this.tabelPanel.Size = new System.Drawing.Size(177, 296);
+            this.tabelPanel.TabIndex = 5;
+            // 
             // DataSourceControl
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -280,11 +280,11 @@
         private System.Windows.Forms.Label linkLabel;
         private System.Windows.Forms.Panel linkPanel;
         private System.Windows.Forms.ComboBox schemaComboBox;
-        private System.Windows.Forms.Panel tabelPanel;
         private System.Windows.Forms.TextBox tableFilterTextBox;
         private System.Windows.Forms.Label addLocalConnectLabel;
         private System.Windows.Forms.Panel dataAddLabelPanel;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ComboBox optComboBox;
+        private System.Windows.Forms.Panel tabelPanel;
     }
 }
