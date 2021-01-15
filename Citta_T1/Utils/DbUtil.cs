@@ -7,6 +7,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Hive2;
+using System.Linq;
 
 namespace C2.Utils
 {
@@ -99,6 +100,25 @@ namespace C2.Utils
             }
             return result;
         }
+
+        public static Dictionary<string, List<string>> StringToDict(string v)
+        {
+            Dictionary<string, List<string>> result = new Dictionary<string, List<string>>();
+            foreach(string line in v.Split(OpUtil.DefaultLineSeparator))
+            {
+                var kv = line.Split(OpUtil.DefaultFieldSeparator);
+                if (kv.Length != 2)
+                    continue;
+                string key = kv[0];
+                string val = kv[1];
+                if (result.Keys.Contains(key))
+                    result[key].Add(val);
+                else
+                    result.Add(key, new List<string>() { val });
+            }
+            return result;
+        }
+
         public static bool TestConn(OraConnection conn)
         {
             using (new GuarderUtil.CursorGuarder(Cursors.WaitCursor))
@@ -127,7 +147,7 @@ namespace C2.Utils
                     ret = TestConn(new OraConnection(dbi));
                     break;
                 case DatabaseType.Hive:
-                    ret = new HiveConnection(dbi).Connect();
+                    ret = new HiveConnection(item).TestConn();
                     break;
                 default:
                     break;
@@ -211,7 +231,7 @@ namespace C2.Utils
             return ret;
         }
 
-        private static List<List<string>> StringTo2DString(string contentString)
+        public static List<List<string>> StringTo2DString(string contentString)
         {
             List<List<string>> ret = new List<List<string>>();
             if (!String.IsNullOrEmpty(contentString))
