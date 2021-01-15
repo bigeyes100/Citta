@@ -147,7 +147,7 @@ namespace C2.Utils
                     ret = TestConn(new OraConnection(dbi));
                     break;
                 case DatabaseType.Hive:
-                    ret = new HiveConnection(item).TestConn();
+                    ret = new HiveConnection(dbi).TestConn();
                     break;
                 default:
                     break;

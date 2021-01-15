@@ -33,12 +33,12 @@ namespace C2.Database
         }
         public List<string> GetUsers()
         {
-            return new List<string>(dao.Query(dao.getUserSQL).Split(OpUtil.DefaultLineSeparator));
+            return new List<string>(dao.Query(dao.GetUserSQL()).Split(OpUtil.DefaultLineSeparator));
         }
         public List<Table> GetTablesByUserOrDb(string usersOrDbs)
         {
             List<Table> tables = new List<Table>();
-            foreach (var line in dao.Query(String.Format(dao.getTablesByUserSQL, usersOrDbs)).Split(OpUtil.DefaultLineSeparator))
+            foreach (var line in dao.Query(String.Format(dao.GetTablesByUserSQL(), usersOrDbs)).Split(OpUtil.DefaultLineSeparator))
                 tables.Add(new Table(usersOrDbs, line));
             return tables;
         }
@@ -52,21 +52,21 @@ namespace C2.Database
         }
         public Dictionary<string, List<string>> GetSchemaByTables(List<Table> tables)
         {
-            string sql = dao.GenGetSchemaByTablesSQL(dao.getSchemaByTablesSQL, tables);
+            string sql = dao.GetSchemaByTablesSQL(tables);
             return DbUtil.StringToDict(dao.Query(sql));
         }
         public bool FillDGVWithTbSchema(DataGridView dataGridView, Table table)
         {
-            string schemaString = dao.Query(dao.getSchemaByTablesSQL);
+            string schemaString = dao.Query(dao.GetSchemaByTablesSQL(new List<Table>() { table }));
             if (String.IsNullOrEmpty(schemaString))
                 return false;
             List<List<string>> schema = DbUtil.StringTo2DString(schemaString);
             FileUtil.FillTable(dataGridView, schema);
             return true;
         }
-        public bool FillDGVWithTbContent(DataGridView dataGridView, Table table)
+        public bool FillDGVWithTbContent(DataGridView dataGridView, Table table, int maxNum)
         {
-            string schemaString = dao.Query(dao.getTableContentSQL);
+            string schemaString = dao.Query(dao.GetTableContentSQL(table, maxNum));
             if (String.IsNullOrEmpty(schemaString))
                 return false;
             List<List<string>> schema = DbUtil.StringTo2DString(schemaString);

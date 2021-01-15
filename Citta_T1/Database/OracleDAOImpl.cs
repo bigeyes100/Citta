@@ -13,12 +13,12 @@ namespace C2.Database
     public class OracleDAOImpl: BaseDAO
     {
         private static readonly LogUtil log = LogUtil.GetInstance("OracleImpl");
-        public string Name, User, Pass, Host, Sid, Service, Port;
-        public string getUserSQL = @"select distinct owner from all_tables";
-        public new string getTablesByUserSQL = @"select table_name from all_tables where owner='{0}'order by table_name";
-        public new string getTableContentSQL = @"select * from {0}.{1} where rownum <= {2}";
-        public new string getSchemaByTablesSQL;
-        public OracleDAOImpl() { }
+        private string Name, User, Pass, Host, Sid, Service, Port;
+        private string getUserSQL = @"select distinct owner from all_tables";
+        private string getTablesByUserSQL = @"select table_name from all_tables where owner='{0}'order by table_name";
+        private string getTableContentSQL = @"select * from {0}.{1} where rownum <= {2}";
+        private string getSchemaByTablesSQL = @"select a.table_name, a.column_name from all_tab_columns a where table_name in ('{0}')";
+        private OracleDAOImpl() { }
         public OracleDAOImpl(DatabaseItem dbi)
         {
             this.Name = dbi.Server;
@@ -131,14 +131,32 @@ namespace C2.Database
                 return sb.ToString();
             }
         }
-
-        public override string GenGetSchemaByTablesSQL(string getSchemaByTablesSQL, List<Table> tables)
-        {
-            throw new NotImplementedException();
-        }
         public override string GenGetTableContentSQL(Table table, int maxNum)
         {
+            return String.Format(this.getTableContentSQL, this.User, table.Name, maxNum);
+        }
+
+        public override string GetTablesByUserSQL()
+        {
+            return String.Format(this.getTablesByUserSQL, this.User);
+        }
+
+        public override string GetSchemaByTablesSQL(List<Table> tables)
+        {
+            String[] tableNames = new string[tables.Count];
+            for (int i = 0; i < tableNames.Length; i++)
+                tableNames[i] = tables[i].Name;
+            return String.Format(this.getSchemaByTablesSQL, tableNames);
+        }
+
+        public override string GetTableContentSQL(Table table, int maxNum)
+        {
             return String.Format(this.getTableContentSQL, this.User, table, maxNum);
+        }
+
+        public override string GetUserSQL()
+        {
+            return this.getUserSQL;
         }
     }
 }

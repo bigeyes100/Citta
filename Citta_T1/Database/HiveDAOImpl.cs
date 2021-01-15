@@ -13,11 +13,11 @@ namespace C2.Database
     public class HiveDAOImpl: BaseDAO
     {
         private static readonly LogUtil log = LogUtil.GetInstance("HiveDAOImpl");
-        public string Server, User, Pass, Host, Port;
-        public new string getUserSQL = @"show databases";
-        public new string getTablesByUserSQL = @"use {};show tables;";
-        public new string getTableContentSQL = @"use {};select * from {} limit {}";
-        public new string getSchemaByTablesSQL;
+        private string Server, User, Pass, Host, Port;
+        private string getUserSQL = @"show databases";
+        private string getTablesByUserSQL = @"use {0};show tables;";
+        private string getTableContentSQL = @"use {0};select * from {1} limit {2}";
+        private string getSchemaByTablesSQL;
 
         public HiveDAOImpl(DatabaseItem dbi)
         {
@@ -95,14 +95,29 @@ namespace C2.Database
             }
         }
 
-        public override string GenGetSchemaByTablesSQL(string getSchemaByTablesSQL, List<Table> tables)
+        public override string GenGetTableContentSQL(Table table, int maxNum)
+        {
+            return String.Format(this.getTableContentSQL, this.User, table.Name, maxNum);
+        }
+
+        public override string GetTablesByUserSQL()
+        {
+            return String.Format(this.getTablesByUserSQL, this.User);
+        }
+
+        public override string GetSchemaByTablesSQL(List<Table> tables)
         {
             throw new NotImplementedException();
         }
 
-        public override string GenGetTableContentSQL(Table table, int maxNum)
+        public override string GetTableContentSQL(Table table, int maxNum)
         {
-            return String.Format(this.getTableContentSQL, this.User, table, maxNum);
+            return String.Format(getTableContentSQL, this.User, table, maxNum);
+        }
+
+        public override string GetUserSQL()
+        {
+            return this.getUserSQL;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace C2.Database.Tests
     public class DAOImplTests
     {
         OraConnection conn = new OraConnection("test@aliyun", "phx2", "123456", "114.55.248.85", "orcl", String.Empty, "1521");
-        private DatabaseItem oralcDBI = new DatabaseItem(DatabaseType.Oracle, "114.55.248.85", "orcl", String.Empty, "1521", "test", "test");
+        private DatabaseItem oralcDBI = new DatabaseItem(DatabaseType.Oracle, "114.55.248.85", "orcl", String.Empty, "1521", "test", "test", table: new Table("test", "TEST_100W"));
         private DatabaseItem hiveDBI = new DatabaseItem(DatabaseType.Hive, "10.1.126.4", String.Empty, String.Empty, "10000", "root", "123456");
         DAOImpl oracleDAO;
         DAOImpl hiveDAO;
@@ -21,13 +21,13 @@ namespace C2.Database.Tests
         public void InitDao()
         {
             oracleDAO = new DAOImpl(oralcDBI);
-            hiveDAO = new DAOImpl(hiveDBI);
+            //hiveDAO = new DAOImpl(hiveDBI);
         }
         public void CreateTest()
         {
             InitDao();
             Assert.IsNotNull(oracleDAO);
-            Assert.IsNotNull(hiveDAO);
+            //Assert.IsNotNull(hiveDAO);
         }
 
         [TestMethod()]
@@ -35,7 +35,7 @@ namespace C2.Database.Tests
         {
             InitDao();
             Assert.IsTrue(oracleDAO.TestConn() == true);
-            Assert.IsTrue(hiveDAO.TestConn() == true);
+            //Assert.IsTrue(hiveDAO.TestConn() == true);
 
         }
 
@@ -44,47 +44,47 @@ namespace C2.Database.Tests
         {
             InitDao();
             List<string> oracleUsers = oracleDAO.GetUsers();
-            List<string> hiveUsers = hiveDAO.GetUsers();
             Assert.IsTrue(oracleUsers.Count > 0);
-            Assert.IsTrue(hiveUsers.Count > 0);
             Console.WriteLine(oracleUsers[0]);
-            Console.WriteLine(hiveUsers[0]);
+            //List<string> hiveUsers = hiveDAO.GetUsers();
+            //Assert.IsTrue(hiveUsers.Count > 0);
+            //Console.WriteLine(hiveUsers[0]);
+
         }
 
         [TestMethod()]
         public void GetTablesByUserOrDbTest()
         {
-            Assert.Fail();
+            InitDao();
+            List<Table> tables = oracleDAO.GetTablesByUserOrDb(oralcDBI.User);
+            Assert.IsTrue(tables.Count > 0);
+            Console.WriteLine(tables[0].Name);
         }
 
         [TestMethod()]
         public void GetTableContentStringTest()
         {
-            Assert.Fail();
+            InitDao();
+            string result = oracleDAO.GetTableContentString(oralcDBI.DataTable, 1000);
+            Assert.IsTrue(!String.IsNullOrEmpty(result));
+            Console.WriteLine(result.Substring(0, 10));
         }
 
         [TestMethod()]
         public void GetTableContentTest()
         {
-            Assert.Fail();
+            InitDao();
+            List<List<string>> result = oracleDAO.GetTableContent(oralcDBI.DataTable, 1000);
+            Assert.IsTrue(result.Count > 0 && result[0].Count > 0);
+            Console.WriteLine(result[0][0]);
         }
 
         [TestMethod()]
         public void GetSchemaByTablesTest()
         {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void FillDGVWithTbSchemaTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void FillDGVWithTbContentTest()
-        {
-            Assert.Fail();
+            InitDao();
+            Dictionary<string, List<string>> result = oracleDAO.GetSchemaByTables(new List<Table>() { oralcDBI.DataTable });
+            Assert.IsTrue(result.Keys.Count > 0);
         }
     }
 }
