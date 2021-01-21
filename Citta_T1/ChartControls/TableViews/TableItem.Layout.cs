@@ -4,8 +4,8 @@ namespace C2.ChartControls.TableViews
 {
     public partial class TableItem
     {
-        int? _CustomWidth;
-        int? _CustomHeight;
+        public int? Width;
+        public int? Height;
         Rectangle _Bounds;
         //const int MaxWidth = 10000;
         //const int MinWidth = 10;

@@ -21,7 +21,6 @@ namespace C2.ChartControls.TableViews
             ResetChartStyle();
             ScrollToCenter();
         }
-
         private void List_TableItemRemoved(object sender, TableItemEventArgs e)
         {
             UpdateView(ChangeTypes.All);

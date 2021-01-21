@@ -11,12 +11,14 @@ namespace C2.ChartControls.TableViews
     public class TableList
     {
         private XList<TableItem> _TableItem;
-        public XList<TableItem> TableItem { get { return _TableItem; } }
+        public XList<TableItem> TableItems { get { return _TableItem; } }
 
         public TableList()
         {
             _TableItem = new XList<TableItem>();
         }
+        public int Count { get { return _TableItem.Count; } }
+
         #region TableItem Events
         public event TableItemEventHandler TableItemAdded;
         public event TableItemEventHandler TableItemRemoved;

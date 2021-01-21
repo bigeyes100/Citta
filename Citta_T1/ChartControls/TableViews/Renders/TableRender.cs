@@ -13,7 +13,7 @@ namespace C2.ChartControls.TableViews
         #region IRender Members
         public void Paint(TableList tl, TableRenderArgs e)
         {
-            PaintTables(tl.TableItem, e);
+            PaintTables(tl.TableItems, e);
         }
 
         public void PaintTable(TableItem ti, TableRenderArgs e)

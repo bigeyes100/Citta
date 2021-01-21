@@ -322,6 +322,10 @@ namespace C2.Controls.Left
             LayoutModelButtonLocation(tableButton); // 递增
             this.tabelPanel.Controls.Add(tableButton);
         }
+        private void GenTableItem(TableItem item)
+        {
+            this.tableChartView.AddTableItem(item);
+        }
         #endregion
 
         #region 外部表布局
@@ -485,7 +489,7 @@ namespace C2.Controls.Left
             this.tabelPanel.Controls.Clear();
             OraConnection conn = new OraConnection(databaseInfo);
             relateTableCol = DbUtil.GetTableCol( conn ,tables);
-            //tablePoint = new Point(ButtonLeftX, -ButtonGapHeight);
+            tablePoint = new Point(ButtonLeftX, -ButtonGapHeight);
             //List<string> tmp = new List<string>();
             //foreach (Table table in tables.Take(Math.Min(300,tables.Count)))
             //{
@@ -506,8 +510,11 @@ namespace C2.Controls.Left
             //    RelateTableButtons.Add(tb);
             //}
             //tableChartView.TableButtons = new List<TableButton>(tables);
-
-                
+            foreach (Table table in  tables)
+            {
+                TableItem item = new TableItem(table, tablePoint);
+                this.tableChartView.AddTableItem(item);
+            }
         }
         public List<DatabaseItem> GetAllExternalData()
         {
