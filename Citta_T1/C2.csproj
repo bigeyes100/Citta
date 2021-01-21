@@ -169,18 +169,22 @@
     <Compile Include="ChartControls\MindMap\MindMapView\MindMapView.Schedule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ChartControls\TableChart\Renders\ITableRender.cs" />
-    <Compile Include="ChartControls\TableChart\TableChartView\TableChartView.cs">
+    <Compile Include="ChartControls\TableViews\Renders\ITableRender.cs" />
+    <Compile Include="ChartControls\TableViews\TableItem.cs" />
+    <Compile Include="ChartControls\TableViews\TableChartView\TableListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ChartControls\TableChart\TableChartView\TableChartView.Mouse.cs">
+    <Compile Include="ChartControls\TableViews\TableChartView\TableListView.Mouse.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ChartControls\TableChart\Renders\TableRenderArgs.cs" />
-    <Compile Include="ChartControls\TableChart\Renders\TableRender.cs" />
-    <Compile Include="ChartControls\TableChart\TableChartView\TableChartView.Paint.cs">
+    <Compile Include="ChartControls\TableViews\Renders\TableRenderArgs.cs" />
+    <Compile Include="ChartControls\TableViews\Renders\TableRender.cs" />
+    <Compile Include="ChartControls\TableViews\TableChartView\TableListView.Paint.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ChartControls\TableViews\TableItem.Layout.cs" />
+    <Compile Include="ChartControls\TableViews\TableItemEventHandler.cs" />
+    <Compile Include="ChartControls\TableViews\TableList.cs" />
     <Compile Include="Controls\C1\Left\IAOButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -211,7 +215,7 @@
     <Compile Include="Controls\C1\Left\IAOLabControl.Designer.cs">
       <DependentUpon>IAOLabControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChartControls\TableChart\TableChart.cs">
+    <Compile Include="ChartControls\TableViews\TableChart.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\DataCharts\BarChart.cs">

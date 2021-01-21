@@ -9,8 +9,21 @@ using System.Windows.Forms;
 
 namespace C2.ChartControls.TableViews
 {
-    partial class TableChartView
+    partial class TableListView
     {
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            if (ShowBorder && Padding.Left > 0)
+            {
+                Rectangle rect = ClientRectangle;
+                e.Graphics.Clear(ChartBackColor);
+                e.Graphics.DrawRectangle(new Pen(BorderColor), 0, 0, rect.Width - 1, rect.Height - 1);
+            }
+            else
+            {
+                base.OnPaint(e);
+            }
+        }
         protected override void DrawChart(ChartPaintEventArgs e)
         {
             // transfter
@@ -36,10 +49,10 @@ namespace C2.ChartControls.TableViews
                 TranslatePoint = Point.Empty;
             }
 
-            if (Render != null && Tables != null)
+            if (Render != null && _TableList != null)
             {
-                TableRenderArgs args = new TableRenderArgs(Tables, e.Graphics, Font);
-                Render.Paint(args);
+                TableRenderArgs args = new TableRenderArgs(_TableList, e.Graphics, Font);
+                Render.Paint(_TableList, args);
             }
         }
     }

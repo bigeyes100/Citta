@@ -1,23 +1,20 @@
 ﻿using C2.Canvas;
 using C2.Canvas.GdiPlus;
-using C2.Database;
-using System;
+using C2.Controls.TableViews;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace C2.ChartControls.TableViews
 {
     public class TableRenderArgs
     {
-        public List<Table> Tables { get; }
+        public TableList TableList { get; }
         public IGraphics Graphics { get; private set; }
+        public TableList Chart { get; private set; }
         public IFont Font { get; private set; }
-        public TableRenderArgs(List<Table> tables, Graphics graphics, Font font)
+        public TableRenderArgs(TableList tableList, Graphics graphics, Font font)
         {
-            Tables = tables;
+            TableList = tableList;
             Graphics = new GdiGraphics(graphics);
             Font = new GdiFont(font);
         }

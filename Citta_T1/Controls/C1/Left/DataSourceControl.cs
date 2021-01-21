@@ -19,7 +19,7 @@ namespace C2.Controls.Left
         private InputDataForm inputDataForm;
         private static readonly int ButtonGapHeight = 50;//上下间隔
         private static readonly int ButtonLeftX = 18;
-        private TableChartView tableChartView;
+        private TableListView tableChartView;
 
         private Point startPoint;
         private Point linkPoint;
@@ -73,7 +73,8 @@ namespace C2.Controls.Left
             tablePoint = new Point(ButtonLeftX, -ButtonGapHeight);
             _RelateTableButtons = new List<TableButton>();
 
-            tableChartView = new TableChartView();
+            TableList tableList = new TableList();
+            tableChartView = new TableListView(tableList);
             // mindMapView1
             tableChartView.Dock = DockStyle.Fill;
             tableChartView.Name = "tableChartView";
@@ -85,7 +86,7 @@ namespace C2.Controls.Left
 
         private void UpdateTableChartView(object sender, EventArgs e)
         {
-            (sender as TableChartView).UpdateView(ChangeTypes.All);
+            (sender as TableListView).UpdateView(ChangeTypes.All);
         }
 
         #region 内外部数据面板切换
@@ -504,7 +505,7 @@ namespace C2.Controls.Left
             //{
             //    RelateTableButtons.Add(tb);
             //}
-            tableChartView.Tables = tables;
+            //tableChartView.TableButtons = new List<TableButton>(tables);
 
                 
         }

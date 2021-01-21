@@ -1,17 +1,10 @@
-﻿using C2.ChartControls.TableViews;
-using C2.Controls.MapViews;
-using C2.Core;
-using C2.Database;
+﻿using C2.Core;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace C2.Controls
+namespace C2.Controls.TableViews
 {
     public abstract class TableChart : ScrollableControlBase
     {
