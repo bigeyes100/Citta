@@ -1,43 +1,63 @@
 ﻿using C2.Controls.TableViews;
 using C2.Core;
+using C2.Database;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace C2.ChartControls.TableViews
 {
     public partial class TableListView: TableChart
     {
-        public event EventHandler TablesChanged;
-        private TableList _TableList;
+        const int TableItemHeight = 10;
+        const int TableItemWidth = 10;
+        private List<Table> _TableList;
+        private List<TableItem> _TableItemList;
         public ITableRender Render { get; private set; }
 
-        public TableListView(TableList tableList)
+        public TableListView()
         {
             Render = new TableRender();
-            _TableList = tableList;
-            _TableList.TableItemAdded += new TableItemEventHandler(List_TableItemAdded);
-            _TableList.TableItemAdded += new TableItemEventHandler(List_TableItemRemoved);
 
             ResetChartStyle();
             ScrollToCenter();
         }
-        private void List_TableItemRemoved(object sender, TableItemEventArgs e)
+        public List<Table> TableList
         {
+            get { return this._TableList; }
+            set
+            {
+                if (_TableList != value)
+                {
+                    List<Table> old = _TableList;
+                    _TableList = value;
+                    OnTableListChanged(old);
+                }
+            }
+
+        }
+
+        private void OnTableListChanged(List<Table> old)
+        {
+            // 当TableList改变时，new出新的TableItems
+            UpdateTableItems(old);
             UpdateView(ChangeTypes.All);
         }
 
-        private void List_TableItemAdded(object sender, TableItemEventArgs e)
+        private void UpdateTableItems(List<Table> old)
         {
-            UpdateView(ChangeTypes.All);
+            this._TableItemList.Clear();
+            for (int i = 0; i < TableList.Count; i++)
+            {
+                Table table = TableList[i];
+                Point loc = new Point(0, TableItemHeight * (1 + i));
+                this._TableItemList.Add(new TableItem(table, loc));
+            }
         }
 
         private void ResetChartStyle()
         {
             
-        }
-        private void OnTablesChanged()
-        {
-            TablesChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

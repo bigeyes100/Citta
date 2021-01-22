@@ -11,9 +11,9 @@ namespace C2.ChartControls.TableViews
     class TableRender : ITableRender
     {
         #region IRender Members
-        public void Paint(TableList tl, TableRenderArgs e)
+        public void Paint(List<TableItem> tis, TableRenderArgs e)
         {
-            PaintTables(tl.TableItems, e);
+            PaintTables(tis, e);
         }
 
         public void PaintTable(TableItem ti, TableRenderArgs e)
@@ -53,9 +53,7 @@ namespace C2.ChartControls.TableViews
             using (Shape shaper = new RectangleShape())
             {
                 // draw background
-                Color backColor = Color.Empty;
-                if (backColor.IsEmpty)
-                    backColor = e.Chart.NodeBackColor;
+                Color backColor = Color.White;
                 var ft = FillType.DefaultFillType;
                 IBrush brushBack = ft.CreateBrush(e.Graphics, backColor, rect);
 

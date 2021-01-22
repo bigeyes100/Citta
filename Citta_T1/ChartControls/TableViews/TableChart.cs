@@ -15,16 +15,16 @@ namespace C2.Controls.TableViews
             ChartBox.AllowDrop = true;
             ChartBox.Bounds = DisplayRectangle;
             ChartBox.Paint += new PaintEventHandler(ChartBox_Paint);
-            ChartBox.MouseDown += new MouseEventHandler(ChartBox_MouseDown);
-            ChartBox.MouseUp += new MouseEventHandler(ChartBox_MouseUp);
-            ChartBox.MouseMove += new MouseEventHandler(ChartBox_MouseMove);
-            ChartBox.MouseLeave += new EventHandler(ChartBox_MouseLeave);
-            ChartBox.MouseWheel += new MouseEventHandler(ChartBox_MouseWheel);
-            ChartBox.KeyDown += new KeyEventHandler(ChartBox_KeyDown);
-            ChartBox.KeyUp += new KeyEventHandler(ChartBox_KeyUp);
-            ChartBox.KeyPress += new KeyPressEventHandler(ChartBox_KeyPress);
-            ChartBox.DragDrop += new DragEventHandler(ChartBox_DragDrop);
-            ChartBox.Resize += new EventHandler(ChartBox_Resize);
+            //ChartBox.MouseDown += new MouseEventHandler(ChartBox_MouseDown);
+            //ChartBox.MouseUp += new MouseEventHandler(ChartBox_MouseUp);
+            //ChartBox.MouseMove += new MouseEventHandler(ChartBox_MouseMove);
+            //ChartBox.MouseLeave += new EventHandler(ChartBox_MouseLeave);
+            //ChartBox.MouseWheel += new MouseEventHandler(ChartBox_MouseWheel);
+            //ChartBox.KeyDown += new KeyEventHandler(ChartBox_KeyDown);
+            //ChartBox.KeyUp += new KeyEventHandler(ChartBox_KeyUp);
+            //ChartBox.KeyPress += new KeyPressEventHandler(ChartBox_KeyPress);
+            //ChartBox.DragDrop += new DragEventHandler(ChartBox_DragDrop);
+            //ChartBox.Resize += new EventHandler(ChartBox_Resize);
             Controls.Add(ChartBox);
 
             SetPaintStyles();
@@ -96,56 +96,51 @@ namespace C2.Controls.TableViews
         }
 
         #endregion
-        #region 事件
-        private void ChartBox_DragDrop(object sender, DragEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        #region mouse & key event
+        //private void ChartBox_DragDrop(object sender, DragEventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        private void ChartBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        //private void ChartBox_KeyPress(object sender, KeyPressEventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        private void ChartBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        //private void ChartBox_KeyUp(object sender, KeyEventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        private void ChartBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        //private void ChartBox_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        private void ChartBox_MouseWheel(object sender, MouseEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        //private void ChartBox_MouseWheel(object sender, MouseEventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        private void ChartBox_MouseLeave(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        //private void ChartBox_MouseLeave(object sender, EventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        private void ChartBox_MouseMove(object sender, MouseEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        //private void ChartBox_MouseMove(object sender, MouseEventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        private void ChartBox_MouseUp(object sender, MouseEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        //private void ChartBox_MouseUp(object sender, MouseEventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        private void ChartBox_MouseDown(object sender, MouseEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-        void ChartBox_Resize(object sender, EventArgs e)
-        {
-            if (CustomDoubleBuffer)
-                UpdateView(ChangeTypes.ViewPort | ChangeTypes.Visual);
-        }
+        //private void ChartBox_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
         #endregion
         #region scroll value
 

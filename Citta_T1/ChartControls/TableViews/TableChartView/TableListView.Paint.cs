@@ -51,8 +51,8 @@ namespace C2.ChartControls.TableViews
 
             if (Render != null && _TableList != null)
             {
-                TableRenderArgs args = new TableRenderArgs(_TableList, e.Graphics, Font);
-                Render.Paint(_TableList, args);
+                TableRenderArgs args = new TableRenderArgs(_TableItemList, e.Graphics, Font);
+                Render.Paint(_TableItemList, args);
             }
         }
     }

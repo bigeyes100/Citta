@@ -1,4 +1,5 @@
 ﻿using C2.Database;
+using System.Drawing;
 
 namespace C2.ChartControls.TableViews
 {

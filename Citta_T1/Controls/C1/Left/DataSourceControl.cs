@@ -73,21 +73,14 @@ namespace C2.Controls.Left
             tablePoint = new Point(ButtonLeftX, -ButtonGapHeight);
             _RelateTableButtons = new List<TableButton>();
 
-            TableList tableList = new TableList();
-            tableChartView = new TableListView(tableList);
+            tableChartView = new TableListView();
             // mindMapView1
             tableChartView.Dock = DockStyle.Fill;
             tableChartView.Name = "tableChartView";
             tableChartView.ShowBorder = true;
-            tableChartView.TablesChanged += UpdateTableChartView;
-
             this.tabelPanel.Controls.Add(tableChartView);
         }
 
-        private void UpdateTableChartView(object sender, EventArgs e)
-        {
-            (sender as TableListView).UpdateView(ChangeTypes.All);
-        }
 
         #region 内外部数据面板切换
         private void ExternalData_Click(object sender, EventArgs e)
@@ -322,10 +315,6 @@ namespace C2.Controls.Left
             LayoutModelButtonLocation(tableButton); // 递增
             this.tabelPanel.Controls.Add(tableButton);
         }
-        private void GenTableItem(TableItem item)
-        {
-            this.tableChartView.AddTableItem(item);
-        }
         #endregion
 
         #region 外部表布局
@@ -510,11 +499,7 @@ namespace C2.Controls.Left
             //    RelateTableButtons.Add(tb);
             //}
             //tableChartView.TableButtons = new List<TableButton>(tables);
-            foreach (Table table in  tables)
-            {
-                TableItem item = new TableItem(table, tablePoint);
-                this.tableChartView.AddTableItem(item);
-            }
+            tableChartView.TableList = tables;
         }
         public List<DatabaseItem> GetAllExternalData()
         {

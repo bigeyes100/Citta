@@ -8,13 +8,13 @@ namespace C2.ChartControls.TableViews
 {
     public class TableRenderArgs
     {
-        public TableList TableList { get; }
+        public List<TableItem> TableItems { get; }
         public IGraphics Graphics { get; private set; }
-        public TableList Chart { get; private set; }
+        public TableChart Chart { get; private set; }
         public IFont Font { get; private set; }
-        public TableRenderArgs(TableList tableList, Graphics graphics, Font font)
+        public TableRenderArgs(List<TableItem> tis, Graphics graphics, Font font)
         {
-            TableList = tableList;
+            TableItems = tis;
             Graphics = new GdiGraphics(graphics);
             Font = new GdiFont(font);
         }
